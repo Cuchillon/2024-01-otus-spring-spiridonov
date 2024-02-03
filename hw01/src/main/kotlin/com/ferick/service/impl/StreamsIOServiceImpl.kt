@@ -10,8 +10,4 @@ class StreamsIOServiceImpl(
     override fun printLine(line: String) {
         printStream.println(line)
     }
-
-    override fun printFormattedLine(line: String, vararg args: Any) {
-        printStream.printf("$line%n", args)
-    }
 }
