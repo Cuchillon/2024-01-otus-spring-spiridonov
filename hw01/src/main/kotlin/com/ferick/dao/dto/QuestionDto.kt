@@ -5,9 +5,10 @@ import com.ferick.model.Question
 import com.opencsv.bean.CsvBindAndSplitByPosition
 import com.opencsv.bean.CsvBindByPosition
 
-data class QuestionDto(
+class QuestionDto {
     @CsvBindByPosition(position = 0)
-    val text: String,
+    private lateinit var text: String
+
     @CsvBindAndSplitByPosition(
         position = 1,
         collectionType = ArrayList::class,
@@ -15,8 +16,7 @@ data class QuestionDto(
         converter = AnswerCsvConverter::class,
         splitOn = "\\|"
     )
-    val answers: List<Answer>
-) {
+    private lateinit var answers: List<Answer>
 
     fun toDomainObject(): Question = Question(text, answers)
 }
