@@ -10,7 +10,10 @@ repositories {
 }
 
 dependencies {
-    testImplementation("org.jetbrains.kotlin:kotlin-test")
+    implementation(group = "org.springframework", name = "spring-context", version = libs.versions.spring.get())
+    implementation(group = "com.opencsv", name = "opencsv", version = libs.versions.opencsv.get())
+    testImplementation(group = "org.jetbrains.kotlin", name = "kotlin-test", version = libs.versions.kotlin.get())
+    testImplementation(group = "io.mockk", name = "mockk",version = libs.versions.mockk.get())
 }
 
 tasks.test {
