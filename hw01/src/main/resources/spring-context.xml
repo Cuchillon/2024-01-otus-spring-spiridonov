@@ -6,10 +6,27 @@
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
 
+    <bean id="fileNameProvider" class="com.ferick.configuration.AppProperties">
+        <constructor-arg name="testFileName" value="questions.csv"/>
+    </bean>
+
+    <bean id="questionDao" class="com.ferick.dao.CsvQuestionDao">
+        <constructor-arg name="fileNameProvider" ref="fileNameProvider"/>
+    </bean>
+
     <bean id="ioService" class="com.ferick.service.impl.StreamsIOServiceImpl">
         <constructor-arg index="0">
             <util:constant static-field="java.lang.System.out"/>
         </constructor-arg>
+    </bean>
+
+    <bean id="testService" class="com.ferick.service.impl.TestServiceImpl">
+        <constructor-arg name="ioService" ref="ioService"/>
+        <constructor-arg name="questionDao" ref="questionDao"/>
+    </bean>
+
+    <bean id="testRunnerService" class="com.ferick.service.impl.TestRunnerServiceImpl">
+        <constructor-arg name="testService" ref="testService"/>
     </bean>
 
 </beans>
