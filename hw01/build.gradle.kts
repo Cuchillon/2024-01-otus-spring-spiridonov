@@ -1,3 +1,6 @@
+import com.github.jengelman.gradle.plugins.shadow.transformers.AppendingTransformer
+import com.github.jengelman.gradle.plugins.shadow.transformers.ManifestResourceTransformer
+
 plugins {
     kotlin("jvm") version "1.9.21"
     id("io.gitlab.arturbosch.detekt").version("1.23.3")
@@ -39,6 +42,15 @@ tasks.shadowJar {
     archiveBaseName.set("ferick")
     archiveClassifier.set("hw01")
     archiveVersion.set(project.version.toString())
+    transform(AppendingTransformer::class.java) {
+        resource = "META-INF/spring.handlers"
+    }
+    transform(AppendingTransformer::class.java) {
+        resource = "META-INF/spring.schemas"
+    }
+    transform(ManifestResourceTransformer::class.java) {
+        mainClass = "com.ferick.ApplicationKt"
+    }
 }
 
 kotlin {
