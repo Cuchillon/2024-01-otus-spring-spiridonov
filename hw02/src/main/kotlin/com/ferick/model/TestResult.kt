@@ -1,10 +1,11 @@
 package com.ferick.model
 
 data class TestResult(
-    val student: Student,
-    val answeredQuestions: MutableList<Question> = mutableListOf(),
-    var rightAnswersCount: Int
+    val student: Student
 ) {
+    val answeredQuestions: MutableList<Question> = mutableListOf()
+    var rightAnswersCount: Int = 0
+
     fun applyAnswer(question: Question, isRightAnswer: Boolean) {
         answeredQuestions.add(question)
         if (isRightAnswer) {

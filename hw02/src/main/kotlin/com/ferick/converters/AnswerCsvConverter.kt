@@ -1,4 +1,4 @@
-package com.ferick.dao.dto
+package com.ferick.converters
 
 import com.ferick.model.Answer
 import com.opencsv.bean.AbstractCsvConverter
