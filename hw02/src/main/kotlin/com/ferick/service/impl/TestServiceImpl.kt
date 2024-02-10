@@ -2,6 +2,7 @@ package com.ferick.service.impl
 
 import com.ferick.converters.QuestionStringConverter
 import com.ferick.dao.QuestionDao
+import com.ferick.model.Question
 import com.ferick.model.Student
 import com.ferick.model.TestResult
 import com.ferick.service.IOService
@@ -23,6 +24,10 @@ class TestServiceImpl(
             """.trimMargin()
         )
         val questions = questionDao.findAll()
+        return getTestResult(student, questions)
+    }
+
+    private fun getTestResult(student: Student, questions: List<Question>): TestResult {
         val testResult = TestResult(student)
         questions.forEachIndexed { index, question ->
             val questionBlock = converter.buildQuestionBlock(index + 1, question)
