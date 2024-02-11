@@ -27,7 +27,7 @@ class QuestionDaoTest {
     }
 
     companion object {
-        private const val TEST_FILE_NAME = "questions.csv"
+        private const val TEST_FILE_NAME = "test_questions.csv"
         private const val QUESTIONS_SIZE = 5
         private const val TEST_QUESTION = "Is a serious face a sign of intelligence?"
         private const val TEST_CORRECT_ANSWER =
