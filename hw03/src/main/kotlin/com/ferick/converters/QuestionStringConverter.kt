@@ -1,18 +1,18 @@
 package com.ferick.converters
 
 import com.ferick.model.Question
-import com.ferick.service.LocalizedMessagesService
+import com.ferick.service.LocalizedIOService
 import org.springframework.stereotype.Component
 
 @Component
 class QuestionStringConverter(
-    private val localizedMessagesService: LocalizedMessagesService
+    private val ioService: LocalizedIOService
 ) {
 
     fun buildQuestionBlock(index: Int, question: Question): String {
         val answerBlock = buildAnswerBlock(question)
-        val questionHeader = localizedMessagesService.getMessage(QUESTION_CODE)
-        val possibleAnswersHeader = localizedMessagesService.getMessage(POSSIBLE_ANSWERS_CODE)
+        val questionHeader = ioService.getMessage(QUESTION_CODE)
+        val possibleAnswersHeader = ioService.getMessage(POSSIBLE_ANSWERS_CODE)
         return """$questionHeader #$index:
             |${question.text}
             |$possibleAnswersHeader:

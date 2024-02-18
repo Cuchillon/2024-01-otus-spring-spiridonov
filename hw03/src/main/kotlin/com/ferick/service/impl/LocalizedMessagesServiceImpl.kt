@@ -11,7 +11,7 @@ class LocalizedMessagesServiceImpl(
     private val localeConfig: LocaleConfig
 ) : LocalizedMessagesService {
 
-    override fun getMessage(code: String, vararg args: Any): String {
+    override fun getMessage(code: String, args: Array<Any>): String {
         return messageSource.getMessage(code, args, localeConfig.locale)
     }
 }

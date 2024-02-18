@@ -14,10 +14,10 @@ class ResultServiceImpl(
 
     override fun showResult(testResult: TestResult) {
         val testResultHeader = ioService.getMessage(TEST_RESULTS_CODE)
-        val student = ioService.getMessage(STUDENT_CODE, testResult.student.getFullName())
+        val student = ioService.getMessage(STUDENT_CODE, arrayOf(testResult.student.getFullName()))
         val answeredQuestionsCount =
-            ioService.getMessage(ANSWERED_QUESTION_COUNT_CODE, testResult.answeredQuestions.size)
-        val rightAnswersCount = ioService.getMessage(RIGHT_ANSWERS_COUNT_CODE, testResult.rightAnswersCount)
+            ioService.getMessage(ANSWERED_QUESTION_COUNT_CODE, arrayOf(testResult.answeredQuestions.size))
+        val rightAnswersCount = ioService.getMessage(RIGHT_ANSWERS_COUNT_CODE, arrayOf(testResult.rightAnswersCount))
         val resultMessage = getResultMessage(testResult.rightAnswersCount)
         ioService.printLine(
             """

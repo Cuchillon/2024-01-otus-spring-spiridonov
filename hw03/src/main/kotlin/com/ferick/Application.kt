@@ -1,5 +1,6 @@
 package com.ferick
 
+import com.ferick.service.TestRunnerService
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
@@ -7,5 +8,7 @@ import org.springframework.boot.runApplication
 class Application
 
 fun main(args: Array<String>) {
-    runApplication<Application>(*args)
+    val context = runApplication<Application>(*args)
+    val testRunnerService = context.getBean(TestRunnerService::class.java)
+    testRunnerService.run()
 }

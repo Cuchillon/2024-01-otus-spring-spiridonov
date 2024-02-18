@@ -57,7 +57,7 @@ class LocalizedIOServiceImpl(
         )
     }
 
-    override fun getMessage(code: String, vararg args: Any): String {
+    override fun getMessage(code: String, args: Array<Any>): String {
         return localizedMessagesService.getMessage(code, args)
     }
 }
