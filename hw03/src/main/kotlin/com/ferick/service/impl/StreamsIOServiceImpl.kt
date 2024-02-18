@@ -29,7 +29,6 @@ class StreamsIOServiceImpl(
     override fun readIntForRange(min: Int, max: Int, errorMessage: String): Int {
         repeat(MAX_ATTEMPTS) {
             try {
-                printStream.print("Your answer: ")
                 val intValue = scanner.nextLine().toInt()
                 if (intValue < min || intValue > max) {
                     throw IllegalArgumentException()
