@@ -15,10 +15,6 @@ class LocalizedIOServiceImpl(
         ioService.printLine(line)
     }
 
-    override fun readString(): String {
-        return ioService.readString()
-    }
-
     override fun readStringWithPrompt(prompt: String): String {
         return ioService.readStringWithPrompt(prompt)
     }
@@ -37,24 +33,6 @@ class LocalizedIOServiceImpl(
 
     override fun readStringWithPromptLocalized(promptCode: String): String {
         return ioService.readStringWithPrompt(localizedMessagesService.getMessage(promptCode))
-    }
-
-    override fun readIntForRangeLocalized(min: Int, max: Int, errorMessageCode: String): Int {
-        return ioService.readIntForRange(min, max, localizedMessagesService.getMessage(errorMessageCode))
-    }
-
-    override fun readIntForRangeWithPrompLocalized(
-        min: Int,
-        max: Int,
-        promptCode: String,
-        errorMessageCode: String
-    ): Int {
-        return ioService.readIntForRangeWithPrompt(
-            min,
-            max,
-            localizedMessagesService.getMessage(promptCode),
-            localizedMessagesService.getMessage(errorMessageCode)
-        )
     }
 
     override fun getMessage(code: String, args: Array<Any>): String {

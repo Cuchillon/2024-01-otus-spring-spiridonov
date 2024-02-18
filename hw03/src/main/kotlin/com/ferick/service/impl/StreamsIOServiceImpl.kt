@@ -21,8 +21,6 @@ class StreamsIOServiceImpl(
         printStream.println(line)
     }
 
-    override fun readString(): String = scanner.nextLine()
-
     override fun readStringWithPrompt(prompt: String): String {
         printLine(prompt)
         return scanner.nextLine()
