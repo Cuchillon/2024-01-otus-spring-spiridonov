@@ -5,3 +5,5 @@
 [Homework 01](hw01/README.md)
 
 [Homework 02](hw02/README.md)
+
+[Homework 03](hw03/README.md)
