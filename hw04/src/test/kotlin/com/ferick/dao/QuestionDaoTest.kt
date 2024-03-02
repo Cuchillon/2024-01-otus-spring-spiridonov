@@ -1,6 +1,5 @@
 package com.ferick.dao
 
-import com.ferick.configuration.properties.TestFileNameProvider
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
@@ -9,9 +8,6 @@ import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
 class QuestionDaoTest {
-
-    @Autowired
-    private lateinit var fileNameProvider: TestFileNameProvider
 
     @Autowired
     private lateinit var questionDao: QuestionDao
