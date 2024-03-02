@@ -12,7 +12,7 @@ class TestRunCommands(
 ) {
 
     @ShellMethod("Run testing for given student", key = ["run"])
-    fun register(
+    fun runTesting(
         @ShellOption("--first-name", "-f") firstName: String,
         @ShellOption("--last-name", "-l") lastName: String,
     ) {
