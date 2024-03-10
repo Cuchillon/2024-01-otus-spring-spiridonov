@@ -14,13 +14,13 @@ class JdbcGenreRepository(
 ) : GenreRepository {
 
     override fun findAll(): List<Genre> {
-        return jdbc.query("SELECT id, name FROM authors", GenreRowMapper())
+        return jdbc.query("SELECT id, name FROM genres", GenreRowMapper())
     }
 
     override fun findAllByIds(ids: Set<Long>): List<Genre> {
         val params = MapSqlParameterSource()
             .addValue("ids", ids)
-        return jdbc.query("SELECT id, full_name FROM authors WHERE id IN (:ids)", params, GenreRowMapper())
+        return jdbc.query("SELECT id, name FROM genres WHERE id IN (:ids)", params, GenreRowMapper())
     }
 
     private class GenreRowMapper : RowMapper<Genre> {

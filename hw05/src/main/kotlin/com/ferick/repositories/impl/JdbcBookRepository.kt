@@ -29,14 +29,12 @@ class JdbcBookRepository(
     }
 
     override fun findById(id: Long): Book? {
-        val sql = "SELECT b.id, b.title, b.author_id, a.full_name AS author_full_name " +
-                "FROM books AS b " +
-                "JOIN authors AS a " +
-                "ON b.author_id = a.id " +
-                "WHERE id = :id"
-        val params = MapSqlParameterSource()
-            .addValue("id", id)
-        return jdbc.query(sql, params, BookResultSetExtractor())
+        val book = getBookByIdWithoutGenres(id)
+        return book?.apply {
+            val relations = getGenreRelations(this)
+            val genres = genreRepository.findAllByIds(relations.map { it.genreId }.toSet())
+            this.genres.addAll(genres)
+        }
     }
 
     override fun save(book: Book): Book {
@@ -61,11 +59,28 @@ class JdbcBookRepository(
         return jdbc.query(sql, BookRowMapper())
     }
 
+    private fun getBookByIdWithoutGenres(id: Long): Book? {
+        val sql = "SELECT b.id, b.title, b.author_id, a.full_name AS author_full_name " +
+                "FROM books AS b " +
+                "JOIN authors AS a " +
+                "ON b.author_id = a.id " +
+                "WHERE b.id = :id"
+        val params = MapSqlParameterSource()
+            .addValue("id", id)
+        return jdbc.query(sql, params, BookResultSetExtractor())
+    }
+
     private fun getAllGenreRelations(): List<BookGenreRelation> {
-        return jdbc.queryForList(
-            "SELECT book_id, genre_id FROM books_genres",
-            emptyMap<String, Any>(),
-            BookGenreRelation::class.java
+        return jdbc.query("SELECT book_id, genre_id FROM books_genres", BookGenreRelationRowMapper())
+    }
+
+    private fun getGenreRelations(book: Book): List<BookGenreRelation> {
+        val params = MapSqlParameterSource()
+            .addValue("book_id", book.id)
+        return jdbc.query(
+            "SELECT book_id, genre_id FROM books_genres WHERE book_id = :book_id",
+            params,
+            BookGenreRelationRowMapper()
         )
     }
 
@@ -93,7 +108,7 @@ class JdbcBookRepository(
             keyHolder,
             arrayOf("id")
         )
-        book.id = keyHolder.getKeyAs(Long::class.java)!!
+        book.id = keyHolder.key as Long
         batchInsertGenresRelationsFor(book)
         return book
     }
@@ -142,6 +157,15 @@ class JdbcBookRepository(
             val authorFullName = rs.getString("author_full_name")
             val author = Author(authorId, authorFullName)
             return Book(id, title, author)
+        }
+    }
+
+    private class BookGenreRelationRowMapper : RowMapper<BookGenreRelation> {
+
+        override fun mapRow(rs: ResultSet, rowNum: Int): BookGenreRelation {
+            val bookId = rs.getLong("book_id")
+            val genreId = rs.getLong("genre_id")
+            return BookGenreRelation(bookId, genreId)
         }
     }
 

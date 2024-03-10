@@ -24,11 +24,11 @@ class BookServiceImpl(
     }
 
     override fun insert(title: String, authorId: Long, genresIds: Set<Long>): Book {
-        TODO("Not yet implemented")
+        return save(0, title, authorId, genresIds)
     }
 
     override fun update(id: Long, title: String, authorId: Long, genresIds: Set<Long>): Book {
-        TODO("Not yet implemented")
+        return save(id, title, authorId, genresIds)
     }
 
     override fun deleteById(id: Long) {
@@ -45,7 +45,7 @@ class BookServiceImpl(
         if (genres.isEmpty() || genresIds.size != genres.size) {
             throw EntityNotFoundException("One or all genres with ids $genresIds not found")
         }
-        val book = Book(id, title, author, genres)
+        val book = Book(id, title, author, genres.toMutableList())
         return bookRepository.save(book)
     }
 }
