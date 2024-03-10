@@ -24,7 +24,6 @@ dependencies {
     implementation(group = "org.springframework.shell", name = "spring-shell-starter")
     implementation(group = "com.h2database", name = "h2", version = libs.versions.h2.get())
     implementation(group = "org.jetbrains.kotlin", name = "kotlin-reflect")
-    implementation(group = "com.opencsv", name = "opencsv", version = libs.versions.opencsv.get())
     testImplementation(group = "org.springframework.boot", name = "spring-boot-starter-test")
     testImplementation(group = "io.mockk", name = "mockk",version = libs.versions.mockk.get())
     testImplementation(group = "com.ninja-squad", name = "springmockk", version = libs.versions.springmockk.get())
