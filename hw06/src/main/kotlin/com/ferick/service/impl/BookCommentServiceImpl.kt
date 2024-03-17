@@ -5,8 +5,10 @@ import com.ferick.model.entities.BookComment
 import com.ferick.repositories.BookCommentRepository
 import com.ferick.repositories.BookRepository
 import com.ferick.service.BookCommentService
+import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
+@Service
 class BookCommentServiceImpl(
     private val bookCommentRepository: BookCommentRepository,
     private val bookRepository: BookRepository

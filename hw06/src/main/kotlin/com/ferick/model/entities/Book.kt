@@ -46,8 +46,8 @@ class Book(
     @Fetch(FetchMode.SUBSELECT)
     @ManyToMany(targetEntity = Genre::class, fetch = FetchType.LAZY, cascade = [CascadeType.PERSIST])
     @JoinTable(name = "books_genres",
-        joinColumns = [JoinColumn(name = "genre_id", referencedColumnName = "id")],
-        inverseJoinColumns = [JoinColumn(name = "book_id", referencedColumnName = "id")]
+        joinColumns = [JoinColumn(name = "book_id", referencedColumnName = "id")],
+        inverseJoinColumns = [JoinColumn(name = "genre_id", referencedColumnName = "id")]
     )
     val genres: List<Genre> = emptyList()
 )

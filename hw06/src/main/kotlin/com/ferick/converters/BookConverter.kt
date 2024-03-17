@@ -31,6 +31,6 @@ class BookConverter(
         title = book.title,
         author = book.author,
         bookComments = book.bookComments,
-        genres = book.genres
+        genres = book.genres.map { genreConverter.genreToDto(it) }
     )
 }

@@ -1,7 +1,7 @@
 package com.ferick.service
 
-import com.ferick.model.entities.Genre
+import com.ferick.model.dto.GenreDto
 
 interface GenreService {
-    fun findAll(): List<Genre>
+    fun findAll(): List<GenreDto>
 }

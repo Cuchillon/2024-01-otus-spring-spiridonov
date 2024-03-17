@@ -14,14 +14,18 @@ class JpaBookRepository(
 ) : BookRepository {
 
     override fun findAll(): List<Book> {
-        val entityGraph = em.getEntityGraph("otus-student-avatars-entity-graph")
+        val entityGraph = em.getEntityGraph("book-author-comments-entity-graph")
         val query = em.createQuery("select b from Book b", Book::class.java)
         query.setHint(EntityGraphType.FETCH.key, entityGraph)
         return query.resultList
     }
 
     override fun findById(id: Long): Book? {
-        return em.find(Book::class.java, id)
+        val entityGraph = em.getEntityGraph("book-author-comments-entity-graph")
+        val query = em.createQuery("select b from Book b where b.id = :id", Book::class.java)
+        query.setParameter("id", id)
+        query.setHint(EntityGraphType.FETCH.key, entityGraph)
+        return query.resultList.firstOrNull()
     }
 
     override fun save(book: Book): Book {
