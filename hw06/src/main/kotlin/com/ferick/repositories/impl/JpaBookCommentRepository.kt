@@ -32,8 +32,7 @@ class JpaBookCommentRepository(
     }
 
     override fun deleteById(id: Long) {
-        val query = em.createQuery("delete from BookComment bc where bc.id = :id")
-        query.setParameter("id", id)
-        query.executeUpdate()
+        val bookComment = em.find(BookComment::class.java, id)
+        em.remove(bookComment)
     }
 }

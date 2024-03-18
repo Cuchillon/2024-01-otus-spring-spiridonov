@@ -38,8 +38,7 @@ class JpaBookRepository(
     }
 
     override fun deleteById(id: Long) {
-        val query = em.createQuery("delete from Book b where b.id = :id")
-        query.setParameter("id", id)
-        query.executeUpdate()
+        val book = em.find(Book::class.java, id)
+        em.remove(book)
     }
 }
