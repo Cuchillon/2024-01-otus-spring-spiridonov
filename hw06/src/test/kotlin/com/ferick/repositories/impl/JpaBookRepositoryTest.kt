@@ -13,7 +13,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager
 import org.springframework.context.annotation.Import
 
 @DataJpaTest
-@Import(JpaBookRepository::class, JpaGenreRepository::class)
+@Import(JpaBookRepository::class)
 class JpaBookRepositoryTest {
 
     @Autowired
