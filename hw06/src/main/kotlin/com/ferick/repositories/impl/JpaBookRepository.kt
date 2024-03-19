@@ -22,10 +22,8 @@ class JpaBookRepository(
 
     override fun findById(id: Long): Book? {
         val entityGraph = em.getEntityGraph("book-author-comments-entity-graph")
-        val query = em.createQuery("select b from Book b where b.id = :id", Book::class.java)
-        query.setParameter("id", id)
-        query.setHint(EntityGraphType.FETCH.key, entityGraph)
-        return query.resultList.firstOrNull()
+        val properties = mapOf<String, Any>(EntityGraphType.FETCH.key to entityGraph)
+        return em.find(Book::class.java, id, properties)
     }
 
     override fun save(book: Book): Book {
