@@ -14,14 +14,14 @@ class JpaBookRepository(
 ) : BookRepository {
 
     override fun findAll(): List<Book> {
-        val entityGraph = em.getEntityGraph("book-author-comments-entity-graph")
+        val entityGraph = em.getEntityGraph("book-author-entity-graph")
         val query = em.createQuery("select b from Book b", Book::class.java)
         query.setHint(EntityGraphType.FETCH.key, entityGraph)
         return query.resultList
     }
 
     override fun findById(id: Long): Book? {
-        val entityGraph = em.getEntityGraph("book-author-comments-entity-graph")
+        val entityGraph = em.getEntityGraph("book-author-entity-graph")
         val properties = mapOf<String, Any>(EntityGraphType.FETCH.key to entityGraph)
         return em.find(Book::class.java, id, properties)
     }
@@ -38,5 +38,14 @@ class JpaBookRepository(
     override fun deleteById(id: Long) {
         val book = em.find(Book::class.java, id)
         em.remove(book)
+    }
+
+    override fun existsById(id: Long): Boolean {
+        val query = em.createQuery(
+            "select case when count(b) > 0 then true else false end from Book b where id = :id",
+            Boolean::class.java
+        )
+            .setParameter("id", id)
+        return query.singleResult
     }
 }

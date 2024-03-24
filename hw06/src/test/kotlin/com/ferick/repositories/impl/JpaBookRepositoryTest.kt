@@ -24,7 +24,7 @@ class JpaBookRepositoryTest {
 
     @Test
     fun `should return correct book list`() {
-        val expectedBooks = em.entityManager.createQuery("select b from Book b", Book::class.java).resultList
+        val expectedBooks = bookIds.map { em.find(Book::class.java, it) }
         val actualBooks = bookRepository.findAll()
         actualBooks.forEachIndexed { i, book ->
             assertThat(book).usingRecursiveComparison().isEqualTo(expectedBooks[i])
@@ -95,5 +95,9 @@ class JpaBookRepositoryTest {
         bookRepository.deleteById(bookId)
         val returnedBookAfterDelete = em.find(Book::class.java, bookId)
         assertThat(returnedBookAfterDelete).isNull()
+    }
+
+    companion object {
+        private val bookIds = listOf(1, 2, 3)
     }
 }

@@ -4,6 +4,7 @@ import com.ferick.model.entities.BookComment
 import com.ferick.repositories.BookCommentRepository
 import jakarta.persistence.EntityManager
 import jakarta.persistence.PersistenceContext
+import org.springframework.data.jpa.repository.EntityGraph
 import org.springframework.stereotype.Repository
 
 @Repository
@@ -13,11 +14,13 @@ class JpaBookCommentRepository(
 ) : BookCommentRepository {
 
     override fun findById(id: Long): BookComment? {
-        return em.find(BookComment::class.java, id)
+        val entityGraph = em.getEntityGraph("book-comment-entity-graph")
+        val properties = mapOf<String, Any>(EntityGraph.EntityGraphType.FETCH.key to entityGraph)
+        return em.find(BookComment::class.java, id, properties)
     }
 
     override fun findByBookId(bookId: Long): List<BookComment> {
-        val query = em.createQuery("select bc from BookComment bc where bc.bookId = :bookId", BookComment::class.java)
+        val query = em.createQuery("select bc from BookComment bc where bc.book.id = :bookId", BookComment::class.java)
         query.setParameter("bookId", bookId)
         return query.resultList
     }

@@ -20,7 +20,7 @@ class JpaGenreRepositoryTest {
 
     @Test
     fun `should return correct genre list`() {
-        val expectedGenres = em.entityManager.createQuery("select g from Genre g", Genre::class.java).resultList
+        val expectedGenres = genreIds.map { em.find(Genre::class.java, it) }
         val actualGenres = genreRepository.findAll()
         actualGenres.forEachIndexed { i, genre ->
             assertThat(genre).usingRecursiveComparison().isEqualTo(expectedGenres[i])
@@ -29,12 +29,16 @@ class JpaGenreRepositoryTest {
 
     @Test
     fun `should return correct genre list by ids`() {
-        val expectedGenres = em.entityManager.createQuery("select g from Genre g", Genre::class.java).resultList
+        val expectedGenres = genreIds.map { em.find(Genre::class.java, it) }
         val expectedGenreIds = setOf<Long>(2, 4, 6)
         val expectedGenresByIds = expectedGenres.filter { it.id in expectedGenreIds }
         val actualGenres = genreRepository.findAllByIds(expectedGenreIds)
         actualGenres.forEachIndexed { i, genre ->
             assertThat(genre).usingRecursiveComparison().isEqualTo(expectedGenresByIds[i])
         }
+    }
+
+    companion object {
+        private val genreIds = listOf(1, 2, 3, 4, 5, 6)
     }
 }

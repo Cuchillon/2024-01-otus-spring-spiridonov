@@ -22,7 +22,7 @@ class JpaAuthorRepositoryTest {
 
     @Test
     fun `should return correct author list`() {
-        val expectedAuthors = em.entityManager.createQuery("select a from Author a", Author::class.java).resultList
+        val expectedAuthors = authorIds.map { em.find(Author::class.java, it) }
         val actualAuthors = authorRepository.findAll()
         actualAuthors.forEachIndexed { i, author ->
             assertThat(author).usingRecursiveComparison().isEqualTo(expectedAuthors[i])
@@ -37,5 +37,9 @@ class JpaAuthorRepositoryTest {
         assertThat(actualAuthor)
             .isNotNull()
             .usingRecursiveComparison().isEqualTo(expectedAuthor)
+    }
+
+    companion object {
+        private val authorIds = listOf(1, 2, 3)
     }
 }

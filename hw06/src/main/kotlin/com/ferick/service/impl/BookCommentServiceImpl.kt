@@ -21,7 +21,9 @@ class BookCommentServiceImpl(
 
     @Transactional(readOnly = true)
     override fun findByBookId(bookId: Long): List<BookComment> {
-        checkBookExists(bookId)
+        if (!bookRepository.existsById(bookId)) {
+            throw EntityNotFoundException("Book with id $bookId not found")
+        }
         return bookCommentRepository.findByBookId(bookId)
     }
 
@@ -41,14 +43,8 @@ class BookCommentServiceImpl(
     }
 
     private fun save(text: String, bookId: Long, id: Long? = null): BookComment {
-        checkBookExists(bookId)
-        val bookComment = BookComment(id, text, bookId)
+        val book = bookRepository.findById(bookId) ?: throw EntityNotFoundException("Book with id $bookId not found")
+        val bookComment = BookComment(id, text, book)
         return bookCommentRepository.save(bookComment)
-    }
-
-    private fun checkBookExists(bookId: Long) {
-        if (bookRepository.findById(bookId) == null) {
-            throw EntityNotFoundException("Book with id $bookId not found")
-        }
     }
 }

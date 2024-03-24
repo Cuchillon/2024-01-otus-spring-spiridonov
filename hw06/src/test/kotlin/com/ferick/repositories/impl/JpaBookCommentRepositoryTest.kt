@@ -1,5 +1,6 @@
 package com.ferick.repositories.impl
 
+import com.ferick.model.entities.Book
 import com.ferick.model.entities.BookComment
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -21,10 +22,9 @@ class JpaBookCommentRepositoryTest {
     @Test
     fun `should return correct book comments by book id`() {
         val bookId = 1L
-        val expectedComments = em.entityManager
-            .createQuery("select bc from BookComment bc where bc.bookId = :bookId", BookComment::class.java)
-            .setParameter("bookId", bookId)
-            .resultList
+        val expectedComments = commentIds
+            .map { em.find(BookComment::class.java, it) }
+            .filter { it.book.id == bookId }
         val actualComments = bookCommentRepository.findByBookId(bookId)
         actualComments.forEachIndexed { i, comment ->
             assertThat(comment).usingRecursiveComparison().isEqualTo(expectedComments[i])
@@ -44,9 +44,10 @@ class JpaBookCommentRepositoryTest {
     @Test
     fun `should save new book comment`() {
         val bookId = 1L
+        val book = em.find(Book::class.java, bookId)
         val expectedComment = BookComment(
             text = "Sherlock Holmes in Space story is awesome",
-            bookId = bookId
+            book = book
         )
         val returnedComment = bookCommentRepository.save(expectedComment)
         assertThat(returnedComment).isNotNull()
@@ -62,10 +63,11 @@ class JpaBookCommentRepositoryTest {
     fun `should save updated book comment`() {
         val bookId = 1L
         val bookCommentId = 1L
+        val book = em.find(Book::class.java, bookId)
         val commentWithChanges = BookComment(
             id = bookCommentId,
             text = "Sherlock Holmes in Space story is awesome",
-            bookId = bookId
+            book = book
         )
         val returnedCommentBeforeUpdate = em.find(BookComment::class.java, bookCommentId)
 
@@ -91,5 +93,9 @@ class JpaBookCommentRepositoryTest {
         bookCommentRepository.deleteById(bookCommentId)
         val returnedCommentAfterUpdate = em.find(BookComment::class.java, bookCommentId)
         assertThat(returnedCommentAfterUpdate).isNull()
+    }
+
+    companion object {
+        private val commentIds = listOf(1, 2, 3, 4, 5, 6)
     }
 }

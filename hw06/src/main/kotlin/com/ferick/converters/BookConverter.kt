@@ -7,8 +7,7 @@ import org.springframework.stereotype.Component
 @Component
 class BookConverter(
     private val authorConverter: AuthorConverter,
-    private val genreConverter: GenreConverter,
-    private val bookCommentConverter: BookCommentConverter
+    private val genreConverter: GenreConverter
 ) {
 
     fun bookToString(bookDto: BookDto): String {
@@ -16,21 +15,13 @@ class BookConverter(
         val genresString = bookDto.genres
             .map { genreConverter.genreToString(it) }
             .joinToString(", ") { "{$it}" }
-        val commentString = bookDto.bookComments
-            .map { bookCommentConverter.commentToString(it) }
-            .joinToString(System.lineSeparator()) { it }
-            .ifEmpty { "Still no comments..." }
-        return """Id: ${bookDto.id}, Title: ${bookDto.title}, Author: {$authorString}, Genres: [$genresString]
-            |Comments:
-            |$commentString
-        """.trimMargin()
+        return "Id: ${bookDto.id}, Title: ${bookDto.title}, Author: {$authorString}, Genres: [$genresString]"
     }
 
     fun bookToDto(book: Book): BookDto = BookDto(
         id = book.id!!,
         title = book.title,
         author = book.author,
-        bookComments = book.bookComments,
         genres = book.genres.map { genreConverter.genreToDto(it) }
     )
 }

@@ -16,9 +16,14 @@ class BookCommentCommands(
     fun findCommentsByBookId(
         @ShellOption("--book-id", "-b") bookId: Long
     ): String {
-        return bookCommentService.findByBookId(bookId)
+        val comments = bookCommentService.findByBookId(bookId)
+        val bookTitle = comments.first().book.title
+        return comments
             .map { bookCommentConverter.commentToString(it) }
-            .joinToString(",${System.lineSeparator()}") { it }
+            .joinToString(
+                separator = ",${System.lineSeparator()}",
+                prefix = "Book title: $bookTitle${System.lineSeparator()}"
+            ) { it }
     }
 
     @ShellMethod("Find book comment by id", key = ["find-comment"])

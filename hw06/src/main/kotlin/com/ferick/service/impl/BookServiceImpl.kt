@@ -5,7 +5,6 @@ import com.ferick.exceptions.EntityNotFoundException
 import com.ferick.model.dto.BookDto
 import com.ferick.model.entities.Book
 import com.ferick.repositories.AuthorRepository
-import com.ferick.repositories.BookCommentRepository
 import com.ferick.repositories.BookRepository
 import com.ferick.repositories.GenreRepository
 import com.ferick.service.BookService
@@ -17,7 +16,6 @@ class BookServiceImpl(
     private val authorRepository: AuthorRepository,
     private val genreRepository: GenreRepository,
     private val bookRepository: BookRepository,
-    private val bookCommentRepository: BookCommentRepository,
     private val bookConverter: BookConverter
 ) : BookService {
 
@@ -57,13 +55,10 @@ class BookServiceImpl(
         val author = authorRepository.findById(authorId)
             ?: throw EntityNotFoundException("Author with id $authorId not found")
         val genres = genreRepository.findAllByIds(genresIds)
-        val bookComments = id?.let {
-            bookCommentRepository.findByBookId(it)
-        } ?: emptyList()
         if (genres.isEmpty() || genresIds.size != genres.size) {
             throw EntityNotFoundException("One or all genres with ids $genresIds not found")
         }
-        val book = Book(id, title, author, bookComments, genres)
+        val book = Book(id, title, author, genres)
         return bookRepository.save(book)
     }
 }
