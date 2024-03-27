@@ -39,13 +39,4 @@ class JpaBookRepository(
         val book = em.find(Book::class.java, id)
         em.remove(book)
     }
-
-    override fun existsById(id: Long): Boolean {
-        val query = em.createQuery(
-            "select case when count(b) > 0 then true else false end from Book b where id = :id",
-            Boolean::class.java
-        )
-            .setParameter("id", id)
-        return query.singleResult
-    }
 }

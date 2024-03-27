@@ -7,5 +7,4 @@ interface BookRepository {
     fun findById(id: Long): Book?
     fun save(book: Book): Book
     fun deleteById(id: Long)
-    fun existsById(id: Long): Boolean
 }

@@ -21,7 +21,7 @@ class BookCommentServiceImpl(
 
     @Transactional(readOnly = true)
     override fun findByBookId(bookId: Long): List<BookComment> {
-        if (!bookRepository.existsById(bookId)) {
+        if (bookRepository.findById(bookId) == null) {
             throw EntityNotFoundException("Book with id $bookId not found")
         }
         return bookCommentRepository.findByBookId(bookId)

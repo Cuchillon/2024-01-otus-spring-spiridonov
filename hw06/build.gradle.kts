@@ -47,3 +47,7 @@ tasks.detekt {
 kotlin {
     jvmToolchain(17)
 }
+
+allOpen {
+    annotation("jakarta.persistence.Entity")
+}
