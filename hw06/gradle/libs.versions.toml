@@ -1,0 +1,4 @@
+[versions]
+h2 = "2.2.224"
+mockk = "1.13.9"
+springmockk = "4.0.2"

@@ -11,3 +11,5 @@
 [Homework 04](hw04/README.md)
 
 [Homework 05](hw05/README.md)
+
+[Homework 06](hw06/README.md)
