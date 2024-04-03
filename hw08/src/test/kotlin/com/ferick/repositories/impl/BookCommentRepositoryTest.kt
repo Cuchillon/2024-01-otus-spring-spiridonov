@@ -26,6 +26,17 @@ class BookCommentRepositoryTest {
         assertThat(actualComments.map { it.text }).containsExactlyElementsOf(expectedComments)
     }
 
+    @Test
+    fun `should delete book comments by book id`() {
+        val books = mongoTemplate.findAll(Book::class.java, "books")
+        val bookId = books.first { it.title == BOOK_TITLE }.id!!
+        val actualCommentsBeforeDelete = bookCommentRepository.findByBookId(bookId)
+        assertThat(actualCommentsBeforeDelete).hasSize(2)
+        bookCommentRepository.deleteByBookId(bookId)
+        val actualCommentsAfterDelete = bookCommentRepository.findByBookId(bookId)
+        assertThat(actualCommentsAfterDelete).isEmpty()
+    }
+
     companion object {
         private const val BOOK_TITLE = "Sherlock Holmes in Space"
 

@@ -5,6 +5,7 @@ import com.ferick.exceptions.EntityNotFoundException
 import com.ferick.model.dto.BookDto
 import com.ferick.model.entities.Book
 import com.ferick.repositories.AuthorRepository
+import com.ferick.repositories.BookCommentRepository
 import com.ferick.repositories.BookRepository
 import com.ferick.repositories.GenreRepository
 import com.ferick.service.BookService
@@ -16,6 +17,7 @@ class BookServiceImpl(
     private val authorRepository: AuthorRepository,
     private val genreRepository: GenreRepository,
     private val bookRepository: BookRepository,
+    private val bookCommentRepository: BookCommentRepository,
     private val bookConverter: BookConverter
 ) : BookService {
 
@@ -40,6 +42,7 @@ class BookServiceImpl(
     }
 
     override fun deleteById(id: String) {
+        bookCommentRepository.deleteByBookId(id)
         bookRepository.deleteById(id)
     }
 
