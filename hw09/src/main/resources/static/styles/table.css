@@ -1,0 +1,91 @@
+@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
+
+h2 {
+  font-size:3em;
+  font-weight: 300;
+  line-height: 1em;
+  padding-bottom: 1%;
+  text-align: center;
+  font-family: 'Cherry Swash', cursive;
+  color: #ecf0f1;
+  text-shadow: 2px 2px 4px #000000;
+}
+
+.container th h1 {
+  font-weight: bold;
+  font-size: 2em;
+  text-align: left;
+  color: #eef4f6;
+}
+
+.container td {
+  font-weight: normal;
+  font-size: 1.5em;
+  -webkit-box-shadow: 0 2px 2px -2px #eef4f6;
+     -moz-box-shadow: 0 2px 2px -2px #eef4f6;
+          box-shadow: 0 2px 2px -2px #eef4f6;
+}
+
+.container {
+  text-align: left;
+  overflow: hidden;
+  width: 80%;
+  margin: 0 auto;
+  display: table;
+  padding: 0 0 8em 0;
+}
+
+.container td, .container th {
+  padding-bottom: 2%;
+  padding-top: 2%;
+  padding-left:2%;
+}
+
+/* Background-color of the odd rows */
+.container tr:nth-child(odd) {
+  background-color: #323C50;
+}
+
+/* Background-color of the even rows */
+.container tr:nth-child(even) {
+  background-color: #2C3446;
+}
+
+.container th {
+  background-color: #1F2739;
+}
+
+.container td {
+  color: #FB667A;
+}
+
+.container tr:hover {
+  background-color: #464A52;
+  -webkit-box-shadow: 0 6px 6px -6px #0E1119;
+     -moz-box-shadow: 0 6px 6px -6px #0E1119;
+          box-shadow: 0 6px 6px -6px #0E1119;
+}
+
+.container-body tr:hover {
+  background-color: #e74c3c;
+  color: #403E10;
+  font-weight: bold;
+
+  box-shadow: #7F7C21 -1px 1px, #7F7C21 -2px 2px, #7F7C21 -3px 3px, #7F7C21 -4px 4px, #7F7C21 -5px 5px, #7F7C21 -6px 6px;
+  transform: translate3d(6px, -6px, 0);
+
+  transition-delay: 0s;
+  transition-duration: 0.4s;
+  transition-property: all;
+  transition-timing-function: line;
+}
+
+.container-body td:hover {
+  color: #403E10;
+  font-weight: bold;
+}
+
+div {
+  padding-top: 30px;
+}

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Book library</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles/global.css" th:href="@{/styles/global.css}">
+    <link rel="stylesheet" type="text/css" href="/static/styles/main.css" th:href="@{/styles/main.css}">
+</head>
+<body th:fragment="navigation">
+<h1>Book Library</h1>
+<nav>
+    <a href="authors.html" th:href="@{/authors}">Authors</a>
+    <a href="genres.html" th:href="@{/genres}">Genres</a>
+    <a href="books.html" th:href="@{/books}">Books</a>
+    <div class="animation start-home"></div>
+</nav>
+</body>
+</html>
