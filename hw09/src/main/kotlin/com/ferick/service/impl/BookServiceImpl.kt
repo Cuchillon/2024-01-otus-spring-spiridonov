@@ -36,7 +36,7 @@ class BookServiceImpl(
 
     @Transactional
     override fun insert(request: CreateBookRequest): BookDto {
-        val book = save(request.title!!, request.authorId!!, request.genreIdSet())
+        val book = save(request.title!!, request.authorId!!, request.genreIds)
         return bookConverter.bookToDto(book)
     }
 

@@ -2,7 +2,9 @@ package com.ferick.controllers
 
 import com.ferick.model.dto.CreateBookRequest
 import com.ferick.model.dto.UpdateBookRequest
+import com.ferick.service.AuthorService
 import com.ferick.service.BookService
+import com.ferick.service.GenreService
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
@@ -12,7 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping
 
 @Controller
 class BookController(
-    private val bookService: BookService
+    private val bookService: BookService,
+    private val authorService: AuthorService,
+    private val genreService: GenreService
 ) {
 
     @GetMapping("/books")
@@ -24,6 +28,10 @@ class BookController(
 
     @GetMapping("/book")
     fun addBook(model: Model): String {
+        val authors = authorService.findAll()
+        val genres = genreService.findAll()
+        model.addAttribute("genres", genres)
+        model.addAttribute("authors", authors)
         model.addAttribute("book", CreateBookRequest())
         return "add_book"
     }
