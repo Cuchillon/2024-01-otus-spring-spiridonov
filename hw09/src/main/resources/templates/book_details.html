@@ -31,8 +31,8 @@
                 </h2>
             </th>
             <th>
-                <button type="button">Delete book</button>
-                <button type="button" class="left-btn">Update book</button>
+                <button class="ordinary-btn" type="button">Delete book</button>
+                <a href="update_book.html" th:href="@{/book/__${book.id}__}"><button class="ordinary-btn left-btn" type="button">Update book</button></a>
             </th>
         </tr>
         </thead>
@@ -60,7 +60,7 @@
                 </h2>
             </th>
             <th>
-                <button type="button">Add comment</button>
+                <button class="ordinary-btn" type="button">Add comment</button>
             </th>
         </tr>
         </thead>

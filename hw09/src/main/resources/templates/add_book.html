@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Book library</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/static/styles/global.css" th:href="@{/styles/global.css}">
+    <link rel="stylesheet" type="text/css" href="/static/styles/main.css" th:href="@{/styles/main.css}">
+    <link rel="stylesheet" type="text/css" href="/static/styles/table.css" th:href="@{/styles/table.css}">
+    <link rel="stylesheet" type="text/css" href="/static/styles/details.css" th:href="@{/styles/books.css}">
+    <link rel="stylesheet" type="text/css" href="/static/styles/button.css" th:href="@{/styles/button.css}">
+    <link rel="stylesheet" type="text/css" href="/static/styles/button.css" th:href="@{/styles/form.css}">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+<header th:insert="header :: navigation"></header>
+
+<div>
+    <h2>
+        <span class="header-span">Add new book</span>
+    </h2>
+</div>
+
+<form action="add_book.html" th:action="@{/book}" th:method="post" th:object="${book}">
+    <div>
+        <label class="labels" for="title-input">Title</label><br>
+        <input class="inputs" id="title-input" name="title" type="text" th:field="*{title}" />
+    </div>
+    <div>
+        <label class="labels" for="author-input">Author id</label><br>
+        <input class="inputs" id="author-input" name="authorId" type="text" th:field="*{authorId}" />
+    </div>
+    <div>
+        <label class="labels" for="genres-input">Genre ids (Add in format ', ')</label><br>
+        <input class="inputs" id="genres-input" name="genreIds" type="text" th:field="*{genreIds}" />
+    </div>
+
+    <div class="footer">
+        <button class="form-btn" type="submit">Add</button>
+        <a href="books.html" th:href="@{/books}"><button class="form-btn" type="button">Close</button></a>
+    </div>
+</form>
+
+</body>
+</html>

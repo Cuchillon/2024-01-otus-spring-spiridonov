@@ -3,6 +3,8 @@ package com.ferick.service.impl
 import com.ferick.converters.BookConverter
 import com.ferick.exceptions.EntityNotFoundException
 import com.ferick.model.dto.BookDto
+import com.ferick.model.dto.CreateBookRequest
+import com.ferick.model.dto.UpdateBookRequest
 import com.ferick.model.entities.Book
 import com.ferick.repositories.AuthorRepository
 import com.ferick.repositories.BookRepository
@@ -33,14 +35,14 @@ class BookServiceImpl(
     }
 
     @Transactional
-    override fun insert(title: String, authorId: Long, genresIds: Set<Long>): BookDto {
-        val book = save(title, authorId, genresIds)
+    override fun insert(request: CreateBookRequest): BookDto {
+        val book = save(request.title!!, request.authorId!!, request.genreIdSet())
         return bookConverter.bookToDto(book)
     }
 
     @Transactional
-    override fun update(id: Long, title: String, authorId: Long, genresIds: Set<Long>): BookDto {
-        val book = save(title, authorId, genresIds, id)
+    override fun update(request: UpdateBookRequest): BookDto {
+        val book = save(request.title!!, request.authorId!!, request.genreIdSet(), request.id)
         return bookConverter.bookToDto(book)
     }
 
