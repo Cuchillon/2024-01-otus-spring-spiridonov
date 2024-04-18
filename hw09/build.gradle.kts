@@ -24,9 +24,11 @@ dependencies {
     implementation(group = "org.springframework.boot", name = "spring-boot-starter-validation")
     implementation(group = "com.h2database", name = "h2", version = libs.versions.h2.get())
     implementation(group = "org.jetbrains.kotlin", name = "kotlin-reflect")
+    implementation(group = "com.fasterxml.jackson.module", name = "jackson-module-kotlin", version = libs.versions.jackson.get())
     testImplementation(group = "org.springframework.boot", name = "spring-boot-starter-test")
     testImplementation(group = "io.mockk", name = "mockk",version = libs.versions.mockk.get())
     testImplementation(group = "com.ninja-squad", name = "springmockk", version = libs.versions.springmockk.get())
+    testImplementation(group = "org.apache.commons", name = "commons-lang3", version = libs.versions.commonsLang.get())
     implementation(kotlin("stdlib-jdk8"))
 }
 
