@@ -42,7 +42,7 @@ class BookServiceImpl(
 
     @Transactional
     override fun update(request: UpdateBookRequest): BookDto {
-        val book = save(request.title!!, request.authorId!!, request.genreIdSet(), request.id)
+        val book = save(request.title!!, request.authorId!!, request.genreIds, request.id)
         return bookConverter.bookToDto(book)
     }
 

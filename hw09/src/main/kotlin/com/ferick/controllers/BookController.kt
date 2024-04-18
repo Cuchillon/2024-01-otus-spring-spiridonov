@@ -44,6 +44,10 @@ class BookController(
 
     @GetMapping("/book/{id}")
     fun updateBook(@PathVariable("id") id: Long, model: Model): String {
+        val authors = authorService.findAll()
+        val genres = genreService.findAll()
+        model.addAttribute("genres", genres)
+        model.addAttribute("authors", authors)
         model.addAttribute("book", UpdateBookRequest(id))
         return "update_book"
     }

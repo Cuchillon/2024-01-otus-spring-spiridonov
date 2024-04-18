@@ -31,12 +31,17 @@
         <input class="inputs" id="title-input" name="title" type="text" th:field="*{title}" />
     </div>
     <div>
-        <label class="labels" for="author-input">Author id</label><br>
-        <input class="inputs" id="author-input" name="authorId" type="text" th:field="*{authorId}" />
+        <label class="labels" for="author-input">Author</label><br>
+        <select class="inputs" id="author-input" th:field="*{authorId}">
+            <option value="0">Select author</option>
+            <option th:each="author : ${authors}" th:value="${author.id}" th:text="${author.fullName}"></option>
+        </select>
     </div>
     <div>
-        <label class="labels" for="genres-input">Genre ids (Add in format ', ')</label><br>
-        <input class="inputs" id="genres-input" name="genreIds" type="text" th:field="*{genreIds}" />
+        <label class="labels" for="genres-input">Genres</label><br>
+        <select class="inputs" id="genres-input" th:field="*{genreIds}" multiple="multiple">
+            <option th:each="genre : ${genres}" th:value="${{genre.id}}" th:text="${genre.name}"></option>
+        </select>
     </div>
 
     <div class="footer">
