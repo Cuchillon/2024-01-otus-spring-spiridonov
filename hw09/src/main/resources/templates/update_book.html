@@ -7,9 +7,9 @@
     <link rel="stylesheet" type="text/css" href="/static/styles/global.css" th:href="@{/styles/global.css}">
     <link rel="stylesheet" type="text/css" href="/static/styles/main.css" th:href="@{/styles/main.css}">
     <link rel="stylesheet" type="text/css" href="/static/styles/table.css" th:href="@{/styles/table.css}">
-    <link rel="stylesheet" type="text/css" href="/static/styles/details.css" th:href="@{/styles/books.css}">
+    <link rel="stylesheet" type="text/css" href="/static/styles/books.css" th:href="@{/styles/books.css}">
     <link rel="stylesheet" type="text/css" href="/static/styles/button.css" th:href="@{/styles/button.css}">
-    <link rel="stylesheet" type="text/css" href="/static/styles/button.css" th:href="@{/styles/form.css}">
+    <link rel="stylesheet" type="text/css" href="/static/styles/form.css" th:href="@{/styles/form.css}">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
@@ -46,7 +46,7 @@
 
     <div class="footer">
         <button class="form-btn" type="submit">Update</button>
-        <a href="books.html" th:href="@{/books}"><button class="form-btn" type="button">Close</button></a>
+        <a href="books.html" th:href="@{/book-details/__${book.id}__}"><button class="form-btn" type="button">Close</button></a>
     </div>
 </form>
 

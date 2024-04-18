@@ -1,6 +1,8 @@
 package com.ferick.service.impl
 
 import com.ferick.exceptions.EntityNotFoundException
+import com.ferick.model.dto.CreateBookCommentRequest
+import com.ferick.model.dto.UpdateBookCommentRequest
 import com.ferick.model.entities.BookComment
 import com.ferick.repositories.BookCommentRepository
 import com.ferick.repositories.BookRepository
@@ -29,13 +31,13 @@ class BookCommentServiceImpl(
     }
 
     @Transactional
-    override fun insert(text: String, bookId: Long): BookComment {
-        return save(text, bookId)
+    override fun insert(request: CreateBookCommentRequest): BookComment {
+        return save(request.text!!, request.bookId)
     }
 
     @Transactional
-    override fun update(id: Long, text: String, bookId: Long): BookComment {
-        return save(text, bookId, id)
+    override fun update(request: UpdateBookCommentRequest): BookComment {
+        return save(request.text!!, request.bookId, request.id)
     }
 
     @Transactional

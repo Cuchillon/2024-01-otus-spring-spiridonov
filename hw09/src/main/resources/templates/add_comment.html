@@ -17,32 +17,22 @@
 
 <div>
     <h2>
-        <span class="header-span">Add new book</span>
+        <span class="header-span" th:text="${book.title}">Book title</span>
     </h2>
 </div>
 
-<form action="add_book.html" th:action="@{/book}" th:method="post" th:object="${book}">
+<form action="add_comment.html" th:action="@{/comment}" th:method="post" th:object="${comment}">
     <div>
-        <label class="labels" for="title-input">Title</label><br>
-        <input class="inputs" id="title-input" name="title" type="text" th:field="*{title}" />
+        <label class="labels" for="text-input">Comment text</label><br>
+        <input class="inputs" id="text-input" name="text" type="text" th:field="*{text}" />
     </div>
     <div>
-        <label class="labels" for="author-input">Author</label><br>
-        <select class="inputs" id="author-input" th:field="*{authorId}">
-            <option value="0">Select author</option>
-            <option th:each="author : ${authors}" th:value="${author.id}" th:text="${author.fullName}"></option>
-        </select>
-    </div>
-    <div>
-        <label class="labels" for="genres-input">Genres</label><br>
-        <select class="inputs" id="genres-input" th:field="*{genreIds}" multiple="multiple">
-            <option th:each="genre : ${genres}" th:value="${{genre.id}}" th:text="${genre.name}"></option>
-        </select>
+        <input type="hidden" name="book-id" th:field="*{bookId}" />
     </div>
 
     <div class="footer">
         <button class="form-btn" type="submit">Add</button>
-        <a href="books.html" th:href="@{/books}"><button class="form-btn" type="button">Close</button></a>
+        <a href="books.html" th:href="@{/book-details/__${book.id}__}"><button class="form-btn" type="button">Close</button></a>
     </div>
 </form>
 
