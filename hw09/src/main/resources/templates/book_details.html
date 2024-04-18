@@ -31,7 +31,10 @@
                 </h2>
             </th>
             <th>
-                <button class="ordinary-btn" type="button">Delete book</button>
+                <form action="#" th:action="@{/book/__${book.id}__/delete}" th:method="post" >
+                    <input type="hidden" name="_method" value="delete" />
+                    <button class="ordinary-btn" type="submit">Delete book</button>
+                </form>
                 <a href="update_book.html" th:href="@{/book/__${book.id}__}"><button class="ordinary-btn left-btn" type="button">Update book</button></a>
             </th>
         </tr>

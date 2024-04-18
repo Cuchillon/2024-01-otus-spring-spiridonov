@@ -61,4 +61,13 @@ class BookController(
         bookService.update(bookRequest)
         return "redirect:/books"
     }
+
+    @PostMapping("/book/{id}/delete")
+    fun deleteBook(
+        @PathVariable("id") id: Long,
+        model: Model
+    ): String {
+        bookService.deleteById(id)
+        return "redirect:/books"
+    }
 }
