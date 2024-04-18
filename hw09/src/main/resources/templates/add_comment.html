@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="/static/styles/books.css" th:href="@{/styles/books.css}">
     <link rel="stylesheet" type="text/css" href="/static/styles/button.css" th:href="@{/styles/button.css}">
     <link rel="stylesheet" type="text/css" href="/static/styles/form.css" th:href="@{/styles/form.css}">
+    <link rel="stylesheet" type="text/css" href="/static/styles/errors.css" th:href="@{/styles/errors.css}">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
@@ -25,6 +26,7 @@
     <div>
         <label class="labels" for="text-input">Comment text</label><br>
         <input class="inputs" id="text-input" name="text" type="text" th:field="*{text}" />
+        <div class="errors" th:if="${#fields.hasErrors('text')}" th:errors="*{text}">Wrong book comment error</div>
     </div>
     <div>
         <input type="hidden" name="book-id" th:field="*{bookId}" />

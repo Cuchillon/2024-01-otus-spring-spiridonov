@@ -4,8 +4,10 @@ import com.ferick.model.dto.CreateBookCommentRequest
 import com.ferick.model.dto.UpdateBookCommentRequest
 import com.ferick.service.BookCommentService
 import com.ferick.service.BookService
+import jakarta.validation.Valid
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
+import org.springframework.validation.BindingResult
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.PathVariable
@@ -34,15 +36,25 @@ class BookCommentController(
 
     @PostMapping("/comment")
     fun addComment(
-        @ModelAttribute("comment") bookCommentRequest: CreateBookCommentRequest,
+        @Valid @ModelAttribute("comment") bookCommentRequest: CreateBookCommentRequest,
+        bindingResult: BindingResult,
         model: Model
     ): String {
+        if (bindingResult.hasErrors()) {
+            val book = bookService.findById(bookCommentRequest.bookId)
+            model.addAttribute("book", book)
+            return "add_comment"
+        }
         bookCommentService.insert(bookCommentRequest)
         return "redirect:/book-details/${bookCommentRequest.bookId}"
     }
 
     @GetMapping("/comment/{bookId}/{id}")
-    fun updateComment(@PathVariable("bookId") bookId: Long, @PathVariable("id") id: Long, model: Model): String {
+    fun updateComment(
+        @PathVariable("bookId") bookId: Long,
+        @PathVariable("id") id: Long,
+        model: Model
+    ): String {
         val book = bookService.findById(bookId)
         model.addAttribute("book", book)
         model.addAttribute("comment", UpdateBookCommentRequest(id, bookId))
@@ -51,11 +63,18 @@ class BookCommentController(
 
     @PostMapping("/comment/{id}")
     fun updateComment(
-        @ModelAttribute("comment") bookCommentRequest: UpdateBookCommentRequest,
+        @PathVariable("id") id: Long,
+        @Valid @ModelAttribute("comment") bookCommentRequest: UpdateBookCommentRequest,
+        bindingResult: BindingResult,
         model: Model
     ): String {
+        if (bindingResult.hasErrors()) {
+            val book = bookService.findById(bookCommentRequest.bookId)
+            model.addAttribute("book", book)
+            return "update_comment"
+        }
         bookCommentService.update(bookCommentRequest)
-        return "redirect:/comment-details/${bookCommentRequest.id}"
+        return "redirect:/comment-details/${id}"
     }
 
     @PostMapping("/comment/{id}/delete")

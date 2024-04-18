@@ -5,8 +5,10 @@ import com.ferick.model.dto.UpdateBookRequest
 import com.ferick.service.AuthorService
 import com.ferick.service.BookService
 import com.ferick.service.GenreService
+import jakarta.validation.Valid
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
+import org.springframework.validation.BindingResult
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.PathVariable
@@ -37,9 +39,13 @@ class BookController(
     }
 
     @PostMapping("/book")
-    fun addBook(@ModelAttribute("book") bookRequest: CreateBookRequest, model: Model): String {
+    fun addBook(
+        @Valid @ModelAttribute("book") bookRequest: CreateBookRequest,
+        bindingResult: BindingResult,
+        model: Model
+    ): String = checkErrors(bindingResult, model, "add_book") {
         bookService.insert(bookRequest)
-        return "redirect:/books"
+        "redirect:/books"
     }
 
     @GetMapping("/book/{id}")
@@ -55,11 +61,12 @@ class BookController(
     @PostMapping("/book/{id}")
     fun updateBook(
         @PathVariable("id") id: Long,
-        @ModelAttribute("book") bookRequest: UpdateBookRequest,
+        @Valid @ModelAttribute("book") bookRequest: UpdateBookRequest,
+        bindingResult: BindingResult,
         model: Model
-    ): String {
+    ): String = checkErrors(bindingResult, model, "update_book") {
         bookService.update(bookRequest)
-        return "redirect:/books"
+        "redirect:/book-details/${id}"
     }
 
     @PostMapping("/book/{id}/delete")
@@ -70,4 +77,20 @@ class BookController(
         bookService.deleteById(id)
         return "redirect:/books"
     }
+
+    private fun checkErrors(
+        bindingResult: BindingResult,
+        model: Model,
+        templateName: String,
+        block: () -> String
+    ): String =
+        if (bindingResult.hasErrors()) {
+            val authors = authorService.findAll()
+            val genres = genreService.findAll()
+            model.addAttribute("genres", genres)
+            model.addAttribute("authors", authors)
+            templateName
+        } else {
+            block.invoke()
+        }
 }

@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="/static/styles/books.css" th:href="@{/styles/books.css}">
     <link rel="stylesheet" type="text/css" href="/static/styles/button.css" th:href="@{/styles/button.css}">
     <link rel="stylesheet" type="text/css" href="/static/styles/form.css" th:href="@{/styles/form.css}">
+    <link rel="stylesheet" type="text/css" href="/static/styles/errors.css" th:href="@{/styles/errors.css}">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
@@ -29,6 +30,7 @@
     <div>
         <label class="labels" for="title-input">Title</label><br>
         <input class="inputs" id="title-input" name="title" type="text" th:field="*{title}" />
+        <div class="errors" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Wrong book title error</div>
     </div>
     <div>
         <label class="labels" for="author-input">Author</label><br>
@@ -36,12 +38,14 @@
             <option value="0">Select author</option>
             <option th:each="author : ${authors}" th:value="${author.id}" th:text="${author.fullName}"></option>
         </select>
+        <div class="errors" th:if="${#fields.hasErrors('authorId')}" th:errors="*{authorId}">Wrong book author error</div>
     </div>
     <div>
         <label class="labels" for="genres-input">Genres</label><br>
         <select class="inputs" id="genres-input" th:field="*{genreIds}" multiple="multiple">
             <option th:each="genre : ${genres}" th:value="${{genre.id}}" th:text="${genre.name}"></option>
         </select>
+        <div class="errors" th:if="${#fields.hasErrors('genreIds')}" th:errors="*{genreIds}">Wrong book genres error</div>
     </div>
 
     <div class="footer">

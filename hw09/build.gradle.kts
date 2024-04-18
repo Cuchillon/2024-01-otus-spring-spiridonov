@@ -21,6 +21,7 @@ dependencies {
     implementation(group = "org.springframework.boot", name = "spring-boot-starter-data-jpa")
     implementation(group = "org.springframework.boot", name = "spring-boot-starter-web")
     implementation(group = "org.springframework.boot", name = "spring-boot-starter-thymeleaf")
+    implementation(group = "org.springframework.boot", name = "spring-boot-starter-validation")
     implementation(group = "com.h2database", name = "h2", version = libs.versions.h2.get())
     implementation(group = "org.jetbrains.kotlin", name = "kotlin-reflect")
     testImplementation(group = "org.springframework.boot", name = "spring-boot-starter-test")
