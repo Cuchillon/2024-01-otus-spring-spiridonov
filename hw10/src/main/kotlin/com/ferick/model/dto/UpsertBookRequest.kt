@@ -2,13 +2,17 @@ package com.ferick.model.dto
 
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotEmpty
+import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Positive
 
-data class UpsertBookRequest(
+class UpsertBookRequest {
     @NotBlank(message = "Title must not be blank")
-    val title: String,
+    var title: String? = null
+
+    @NotNull
     @Positive(message = "Author must be selected")
-    val authorId: Long,
+    var authorId: Long? = null
+
     @NotEmpty(message = "At least one genre must be selected")
-    val genreIds: Set<Long>
-)
+    var genreIds: Set<Long> = emptySet()
+}

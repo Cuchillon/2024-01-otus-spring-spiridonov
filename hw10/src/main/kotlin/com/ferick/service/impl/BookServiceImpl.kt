@@ -36,13 +36,13 @@ class BookServiceImpl(
 
     @Transactional
     override fun insert(request: UpsertBookRequest): BookDto {
-        val book = save(request.title, request.authorId, request.genreIds)
+        val book = save(request.title!!, request.authorId!!, request.genreIds)
         return bookConverter.bookToDto(book)
     }
 
     @Transactional
     override fun update(id: Long, request: UpsertBookRequest): BookDto {
-        val book = save(request.title, request.authorId, request.genreIds, id)
+        val book = save(request.title!!, request.authorId!!, request.genreIds, id)
         return bookConverter.bookToDto(book)
     }
 
