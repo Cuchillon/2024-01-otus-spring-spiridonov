@@ -2,6 +2,7 @@ package com.ferick.controllers
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
+import com.ferick.exceptions.EntityNotFoundException
 import com.ferick.model.dto.BookDto
 import com.ferick.model.dto.GenreDto
 import com.ferick.model.dto.RestApiError
@@ -107,6 +108,18 @@ class BookControllerTest {
         assertThat(response.status).isEqualTo(HttpStatus.BAD_REQUEST.value())
         assertThat(restApiError.statusCode).isEqualTo(HttpStatus.BAD_REQUEST.value())
         assertThat(restApiError.errors[errorMessage.first]).isEqualTo(errorMessage.second)
+    }
+
+    @Test
+    fun getNonExistingBook() {
+        val bookId = 4L
+        val errorMessage = "Book not found"
+        every { bookService.findById(bookId) } throws EntityNotFoundException(errorMessage)
+        val response = mockMvc.get("/book/$bookId").andReturn().response
+        val restApiError = response.contentAsString.toObj<RestApiError>()
+        assertThat(response.status).isEqualTo(HttpStatus.NOT_FOUND.value())
+        assertThat(restApiError.statusCode).isEqualTo(HttpStatus.NOT_FOUND.value())
+        assertThat(restApiError.errors["message"]).isEqualTo(errorMessage)
     }
 
     companion object {

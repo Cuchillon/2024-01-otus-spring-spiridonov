@@ -1,5 +1,6 @@
 package com.ferick.controllers
 
+import com.ferick.exceptions.EntityNotFoundException
 import com.ferick.model.dto.RestApiError
 import org.springframework.http.HttpStatus
 import org.springframework.validation.FieldError
@@ -26,5 +27,13 @@ class ExceptionHandlerAdvice {
             errors[fieldName] = errorMessage
         })
         return RestApiError(HttpStatus.BAD_REQUEST.value(), errors)
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(EntityNotFoundException::class)
+    fun handleNotFoundException(
+        ex: EntityNotFoundException
+    ): RestApiError {
+        return RestApiError(HttpStatus.NOT_FOUND.value(), mapOf("message" to ex.message!!))
     }
 }
