@@ -1,7 +1,7 @@
 package com.ferick.controllers
 
+import com.ferick.model.dto.BookCommentDto
 import com.ferick.model.dto.UpsertBookCommentRequest
-import com.ferick.model.entities.BookComment
 import com.ferick.service.BookCommentService
 import com.ferick.service.BookService
 import jakarta.validation.Valid
@@ -22,21 +22,21 @@ class BookCommentController(
     @GetMapping("/book-comment/book/{bookId}")
     fun getBookCommentsByBookId(
         @PathVariable("bookId") bookId: Long
-    ): List<BookComment> {
+    ): List<BookCommentDto> {
         return bookCommentService.findByBookId(bookId)
     }
 
     @GetMapping("/book-comment/{id}")
     fun getBookCommentById(
         @PathVariable("id") id: Long
-    ): BookComment {
+    ): BookCommentDto {
         return bookCommentService.findById(id)
     }
 
     @PostMapping("/book-comment")
     fun createComment(
         @Valid @RequestBody bookCommentRequest: UpsertBookCommentRequest
-    ): BookComment {
+    ): BookCommentDto {
         return bookCommentService.insert(bookCommentRequest)
     }
 
@@ -44,7 +44,7 @@ class BookCommentController(
     fun updateComment(
         @PathVariable("id") id: Long,
         @Valid @RequestBody bookCommentRequest: UpsertBookCommentRequest
-    ): BookComment {
+    ): BookCommentDto {
         return bookCommentService.update(id, bookCommentRequest)
     }
 

@@ -1,7 +1,7 @@
 package com.ferick.service
 
-import com.ferick.model.entities.Author
+import com.ferick.model.dto.AuthorDto
 
 interface AuthorService {
-    fun findAll(): List<Author>
+    fun findAll(): List<AuthorDto>
 }
