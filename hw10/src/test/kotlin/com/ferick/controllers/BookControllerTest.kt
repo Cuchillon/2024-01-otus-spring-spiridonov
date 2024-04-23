@@ -3,11 +3,11 @@ package com.ferick.controllers
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.ferick.exceptions.EntityNotFoundException
+import com.ferick.model.dto.AuthorDto
 import com.ferick.model.dto.BookDto
 import com.ferick.model.dto.GenreDto
 import com.ferick.model.dto.RestApiError
 import com.ferick.model.dto.UpsertBookRequest
-import com.ferick.model.entities.Author
 import com.ferick.service.BookService
 import com.ninjasquad.springmockk.MockkBean
 import io.mockk.every
@@ -123,7 +123,7 @@ class BookControllerTest {
     }
 
     companion object {
-        private val author = Author(1L, RandomStringUtils.randomAlphabetic(8))
+        private val author = AuthorDto(1L, RandomStringUtils.randomAlphabetic(8))
         private val genre = GenreDto(1L, RandomStringUtils.randomAlphabetic(8))
         private val book = BookDto(
             id = 1L,
@@ -133,7 +133,7 @@ class BookControllerTest {
         )
         private val request = UpsertBookRequest().apply {
             title = book.title
-            authorId = author.id!!
+            authorId = author.id
             genreIds = setOf(genre.id)
         }
 
@@ -145,7 +145,7 @@ class BookControllerTest {
             Arguments.of(
                 UpsertBookRequest().apply {
                     title = ""
-                    authorId = author.id!!
+                    authorId = author.id
                     genreIds = setOf(genre.id)
                 }, "title" to "Title must not be blank"
             ),
@@ -159,7 +159,7 @@ class BookControllerTest {
             Arguments.of(
                 UpsertBookRequest().apply {
                     title = book.title
-                    authorId = author.id!!
+                    authorId = author.id
                     genreIds = setOf()
                 }, "genreIds" to "At least one genre must be selected"
             )
