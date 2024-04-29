@@ -3,6 +3,7 @@ package com.ferick.controllers
 import com.ferick.model.dto.BookCommentDto
 import com.ferick.model.dto.UpsertBookCommentRequest
 import com.ferick.service.BookCommentService
+import com.ferick.service.BookService
 import jakarta.validation.Valid
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class BookCommentController(
+    private val bookService: BookService,
     private val bookCommentService: BookCommentService
 ) {
 
