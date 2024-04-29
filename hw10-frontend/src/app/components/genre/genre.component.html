@@ -1,0 +1,21 @@
+<div>
+  <h1>
+    <span>Genres</span>
+  </h1>
+</div>
+
+<table class="container">
+  <thead>
+    <tr>
+      <th><h1>Id</h1></th>
+      <th><h1>Name</h1></th>
+    </tr>
+  </thead>
+  <tbody class="container-body">
+    <tr *ngFor="let genre of genres">
+      <td>{{genre.id}}</td>
+      <td>{{genre.name}}</td>
+    </tr>
+  </tbody>
+</table>
+

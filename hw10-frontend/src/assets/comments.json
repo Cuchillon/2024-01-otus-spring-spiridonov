@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "text": "Awesome book, like it",
+        "bookId": 1
+    },
+    {
+        "id": 2,
+        "text": "Holmes in Space is something new",
+        "bookId": 1
+    },
+    {
+        "id": 3,
+        "text": "Emmanuelle is very sexy as always",
+        "bookId": 2
+    },
+    {
+        "id": 4,
+        "text": "Waiting for a new book with Emmanuelle and Emmanuel Macron",
+        "bookId": 2
+    },
+    {
+        "id": 5,
+        "text": "The dildo is OK",
+        "bookId": 3
+    },
+    {
+        "id": 6,
+        "text": "It is a good fiction enough to fall asleep",
+        "bookId": 3
+    }
+]

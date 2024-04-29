@@ -1,0 +1,38 @@
+span {
+  color: #3498db;
+}
+
+.header {
+  text-align: left;
+  overflow: hidden;
+  width: 60%;
+  margin: 0 auto;
+  display: table;
+}
+
+.header th {
+  width: 33.3%;
+}
+
+.modal-body p {
+  font-size: 2em;
+}
+
+.details-container {
+  background-color: #34495e;
+  margin: 0 auto;
+  width: 60%;
+  font-size:2em; 
+  font-weight: 300;
+  line-height: 1em;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  padding-left: 2%;
+  text-align: left;
+  color: #ecf0f1;
+  text-shadow: 2px 2px 4px #000000;
+}
+
+.left-btn {
+  margin-right: 7px;
+}

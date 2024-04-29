@@ -1,0 +1,56 @@
+[
+    {
+        "id": 1,
+        "title": "Sherlock Holmes in Space",
+        "author": {
+            "id": 1,
+            "fullName": "Conan Quasi-Doyle"
+        },
+        "genres": [
+            {
+                "id": 1,
+                "name": "Science fiction"
+            },
+            {
+                "id": 2,
+                "name": "Detective fiction"
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "title": "Emmanuelle and the Night Chase",
+        "author": {
+            "id": 2,
+            "fullName": "Emmanuelle Quasi-Arsan"
+        },
+        "genres": [
+            {
+                "id": 3,
+                "name": "Thriller"
+            },
+            {
+                "id": 5,
+                "name": "Erotic"
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "title": "Dracula and the Big Dildo",
+        "author": {
+            "id": 3,
+            "fullName": "Bram Quasi-Stoker"
+        },
+        "genres": [
+            {
+                "id": 4,
+                "name": "Horror"
+            },
+            {
+                "id": 6,
+                "name": "Porn"
+            }
+        ]
+    }
+]

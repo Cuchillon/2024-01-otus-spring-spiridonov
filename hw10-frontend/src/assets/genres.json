@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "name": "Science fiction"
+    },
+    {
+        "id": 2,
+        "name": "Detective fiction"
+    },
+    {
+        "id": 3,
+        "name": "Thriller"
+    },
+    {
+        "id": 4,
+        "name": "Horror"
+    },
+    {
+        "id": 5,
+        "name": "Erotic"
+    },
+    {
+        "id": 6,
+        "name": "Porn"
+    }
+]

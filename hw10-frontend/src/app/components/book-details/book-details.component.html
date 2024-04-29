@@ -1,0 +1,122 @@
+<div>
+    <table class="header">
+      <thead>
+        <tr>
+          <th></th>
+          <th>
+            <h1>
+              <span>Book details</span>
+            </h1>
+          </th>
+          <th>
+            <button type="button" (click)="deleteBook()">Delete book</button>
+            <button type="button" class="left-btn" (click)="openModalFunction(updatedBookModalContent)">Update book</button>
+          </th>
+        </tr>
+      </thead>
+    </table>>
+  </div>
+
+<div class="details-container">
+    <p>Id: {{book?.id}}</p>
+    <p>Title: {{book?.title}}</p>
+    <p>Author: {{book?.author?.fullName}}</p>
+    <p>Genres:</p>
+    <ul *ngFor="let genre of book?.genres">
+        <li>{{genre.name}}</li>
+    </ul>
+</div>
+
+<div>
+  <table class="header">
+    <thead>
+      <tr>
+        <th></th>
+        <th>
+          <h1>
+            <span>Comments</span>
+          </h1>
+        </th>
+        <th>
+          <button type="button" (click)="openModalFunction(newCommentModalContent)">Add comment</button>
+        </th>
+      </tr>
+    </thead>
+  </table>>
+  <table class="container">
+    <thead>
+      <tr>
+        <th><h1>Id</h1></th>
+        <th><h1>Text</h1></th>
+      </tr>
+    </thead>
+    <tbody class="container-body">
+      <tr *ngFor="let bookComment of bookComments" 
+      placement="start" ngbTooltip="Click on the book comment to pass to the book comment details" 
+      (click)="goToBookComment(bookComment.id)">
+        <td>{{bookComment.id}}</td>
+        <td>{{bookComment.text}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #updatedBookModalContent let-modal>
+
+  <div class="modal-header">
+    <h2 class="modal-title">Update book</h2>
+  </div>
+
+  <div class="modal-body">
+    <p>
+      <label>Title</label><br>
+      <input name="title" [(ngModel)]="title" />
+    </p>
+    <p>
+      <label>Authors</label><br>
+      <select name="authorId" [(ngModel)]="authorId">
+        @for(author of authors; track $index){
+          <option [value]="author.id">
+            {{author.fullName}}
+          </option>
+        }
+      </select>
+    </p>
+    <p>
+      <label>Genres</label><br>
+      <select name="genreIds" [(ngModel)]="genreIds" multiple="multiple">
+        @for(genre of genres; track $index){
+          <option [value]="genre.id">
+            {{genre.name}}
+          </option>
+        }
+      </select>
+    </p>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="updateBook()">Update</button>
+    <button type="button" class="btn btn-secondary" (click)="closeModalFunction()">Close</button>
+  </div>
+
+</ng-template>
+
+<ng-template #newCommentModalContent let-modal>
+
+  <div class="modal-header">
+    <h2 class="modal-title">Add comment</h2>
+  </div>
+
+  <div class="modal-body">
+    <p>
+      <label>Text</label><br>
+      <input name="text" [(ngModel)]="commentText" />
+    </p>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="addBookComment()">Add</button>
+    <button type="button" class="btn btn-secondary" (click)="closeModalFunction()">Close</button>
+  </div>
+
+</ng-template>
