@@ -1,0 +1,14 @@
+<h1>Book Library</h1>
+
+<nav>
+    <a [routerLink]="['authors']" [routerLinkActive]="['author-active']">Authors</a>
+    <a [routerLink]="['genres']" [routerLinkActive]="['genre-active']">Genres</a>
+    <a [routerLink]="['books']" [routerLinkActive]="['book-active']">Books</a>
+    <div class="animation start-home"></div>
+</nav>
+
+<p *ngIf="isStartScreen()">
+    Hi guys! <span>You can choose what you want</span>
+</p>
+
+<router-outlet></router-outlet>

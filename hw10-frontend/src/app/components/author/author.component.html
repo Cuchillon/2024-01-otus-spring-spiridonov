@@ -1,0 +1,20 @@
+<div>
+  <h1>
+    <span>Authors</span>
+  </h1>
+</div>
+
+<table class="container">
+  <thead>
+    <tr>
+      <th><h1>Id</h1></th>
+      <th><h1>Full name</h1></th>
+    </tr>
+  </thead>
+  <tbody class="container-body">
+    <tr *ngFor="let author of authors">
+      <td>{{author.id}}</td>
+      <td>{{author.fullName}}</td>
+    </tr>
+  </tbody>
+</table>

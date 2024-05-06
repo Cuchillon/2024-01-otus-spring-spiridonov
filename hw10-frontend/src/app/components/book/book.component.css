@@ -1,0 +1,19 @@
+span {
+    color: #3498db;
+  }
+
+.header {
+  text-align: left;
+  overflow: hidden;
+  width: 60%;
+  margin: 0 auto;
+  display: table;
+}
+
+.header th {
+  width: 33.3%;
+}
+
+.modal-body p {
+  font-size: 2em;
+}
