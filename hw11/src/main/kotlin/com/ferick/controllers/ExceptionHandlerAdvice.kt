@@ -4,19 +4,19 @@ import com.ferick.exceptions.EntityNotFoundException
 import com.ferick.model.dto.RestApiError
 import org.springframework.http.HttpStatus
 import org.springframework.validation.FieldError
-import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestControllerAdvice
+import org.springframework.web.bind.support.WebExchangeBindException
 
 
 @RestControllerAdvice
 class ExceptionHandlerAdvice {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(MethodArgumentNotValidException::class)
+    @ExceptionHandler(WebExchangeBindException::class)
     fun handleValidationExceptions(
-        ex: MethodArgumentNotValidException
+        ex: WebExchangeBindException
     ): RestApiError {
         val errors = ex.bindingResult.allErrors.associate { error ->
             val fieldName = (error as FieldError).field
