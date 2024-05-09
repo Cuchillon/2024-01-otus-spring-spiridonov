@@ -27,10 +27,11 @@ class BookCommentServiceImpl(
     }
 
     override fun findByBookId(bookId: String): Flux<BookCommentDto> {
-        if (bookRepository.findById(bookId).blockOptional().isEmpty) {
-            throw EntityNotFoundException("Book with id $bookId not found")
-        }
-        return bookCommentRepository.findByBookId(bookId).map { bookCommentConverter.bookCommentToDto(it) }
+        return bookRepository.findById(bookId)
+            .switchIfEmpty { Mono.error(EntityNotFoundException("Book with id $bookId not found")) }
+            .flatMapMany { book ->
+                bookCommentRepository.findByBookId(book.id!!).map { bookCommentConverter.bookCommentToDto(it) }
+            }
     }
 
     override fun insert(request: UpsertBookCommentRequest): Mono<BookCommentDto> {
@@ -46,10 +47,11 @@ class BookCommentServiceImpl(
     }
 
     private fun save(text: String, bookId: String, id: String? = null): Mono<BookComment> {
-        val book = bookRepository.findById(bookId).blockOptional().orElseThrow {
-            EntityNotFoundException("Book with id $bookId not found")
-        }
-        val bookComment = BookComment(id, text, book)
-        return bookCommentRepository.save(bookComment)
+        return bookRepository.findById(bookId)
+            .switchIfEmpty { Mono.error(EntityNotFoundException("Book with id $bookId not found")) }
+            .map { BookComment(id, text, it) }
+            .flatMap {
+                bookCommentRepository.save(it)
+            }
     }
 }

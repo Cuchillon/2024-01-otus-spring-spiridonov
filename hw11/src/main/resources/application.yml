@@ -2,11 +2,9 @@ application:
   title: App for book library
   version: 1.0
 
-server:
-  servlet:
-    context-path: /book-library
-
 spring:
+  webflux:
+    base-path: /book-library
   data:
     mongodb:
       port: 0
