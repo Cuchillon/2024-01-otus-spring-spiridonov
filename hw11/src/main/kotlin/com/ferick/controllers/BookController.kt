@@ -47,7 +47,7 @@ class BookController(
     @DeleteMapping("/book/{id}")
     fun deleteBook(
         @PathVariable("id") id: String
-    ) {
-        bookService.deleteById(id)
+    ): Mono<Void> {
+        return bookService.deleteById(id)
     }
 }

@@ -43,8 +43,7 @@ class BookServiceImpl(
     }
 
     override fun deleteById(id: String): Mono<Void> {
-        return bookCommentRepository.deleteByBookId(id)
-            .and { bookRepository.deleteById(id) }
+        return bookCommentRepository.deleteByBookId(id).then(bookRepository.deleteById(id))
     }
 
     private fun save(title: String, authorId: String, genresIds: Set<String>, id: String? = null): Mono<Book> {

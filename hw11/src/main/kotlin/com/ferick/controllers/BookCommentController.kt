@@ -51,7 +51,7 @@ class BookCommentController(
     @DeleteMapping("/book-comment/{id}")
     fun deleteComment(
         @PathVariable("id") id: String
-    ) {
-        bookCommentService.deleteById(id)
+    ): Mono<Void> {
+        return bookCommentService.deleteById(id)
     }
 }
