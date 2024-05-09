@@ -14,6 +14,7 @@ import com.ferick.repositories.GenreRepository
 import com.ferick.service.impl.BookServiceImpl
 import io.mockk.every
 import io.mockk.mockk
+import io.mockk.verify
 import org.apache.commons.lang3.RandomStringUtils
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatException
@@ -102,6 +103,17 @@ class BookServiceTest {
         assertThatException().isThrownBy {
             bookService.insert(request).block()
         }.withMessage("One or all genres with ids ${request.genreIds} not found")
+    }
+
+    @Test
+    fun deleteById() {
+        every { bookRepository.deleteById(any<String>()) } returns Mono.empty()
+        every { bookCommentRepository.deleteByBookId(any()) } returns Mono.empty()
+        bookService.deleteById(randomId()).block()
+        verify(exactly = 1) {
+            bookCommentRepository.deleteByBookId(any())
+            bookRepository.deleteById(any<String>())
+        }
     }
 
     companion object {
