@@ -11,7 +11,6 @@ import { AuthorApiService } from '../../services/author.api.service';
 import { GenreApiService } from '../../services/genre.api.service';
 import { Author } from '../../models/author.model';
 import { Genre } from '../../models/genre.model';
-import { RestApiError } from '../../models/dto/rest-api-error';
 
 @Component({
   selector: 'app-book',
@@ -61,9 +60,7 @@ export class BookComponent implements OnInit {
   }
 
   addBook() {
-    let request = new UpsertBookRequest(
-      this.title, Number.parseInt(this.authorId), this.genreIds.map(id => Number.parseInt(id))
-    );
+    let request = new UpsertBookRequest(this.title, this.authorId, this.genreIds);
     this.bookApiService.createBook(request).subscribe(
       book => this.books.push(book), 
       err => this.errorMessage = err
@@ -72,7 +69,7 @@ export class BookComponent implements OnInit {
     this.clearInputs();
   }
 
-  goToBook(id: number) {
+  goToBook(id: string) {
     this.router.navigate(['/book-details', id])
   }
 

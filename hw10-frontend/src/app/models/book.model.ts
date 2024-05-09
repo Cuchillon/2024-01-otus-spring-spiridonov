@@ -2,12 +2,12 @@ import { Author } from "./author.model"
 import { Genre } from "./genre.model"
 
 export class Book {
-    id: number
+    id: string
     title: string
     author: Author
     genres: Genre[]
 
-    constructor(id: number, title: string, author: Author, genres: Genre[]) {
+    constructor(id: string, title: string, author: Author, genres: Genre[]) {
         this.id = id
         this.title = title
         this.author = author
