@@ -51,14 +51,18 @@ class BookServiceImpl(
         if (genresIds.isEmpty()) {
             throw IllegalArgumentException("Genres ids must not be empty")
         }
-        val author = authorRepository.findById(authorId).blockOptional().orElseThrow {
-            EntityNotFoundException("Author with id $authorId not found")
-        }
-        val genres = genreRepository.findAllById(genresIds).collectList().block()!!
-        if (genres.isEmpty() || genresIds.size != genres.size) {
-            throw EntityNotFoundException("One or all genres with ids $genresIds not found")
-        }
-        val book = Book(id, title, author, genres)
-        return bookRepository.save(book)
+
+        return authorRepository.findById(authorId)
+            .switchIfEmpty {
+                Mono.error(EntityNotFoundException("Author with id $authorId not found"))
+            }.flatMap { author ->
+                genreRepository.findAllById(genresIds).collectList().flatMap { genres ->
+                    if (genres.isEmpty() || genresIds.size != genres.size) {
+                        throw EntityNotFoundException("One or all genres with ids $genresIds not found")
+                    }
+                    val book = Book(id, title, author, genres)
+                    bookRepository.save(book)
+                }
+            }
     }
 }
