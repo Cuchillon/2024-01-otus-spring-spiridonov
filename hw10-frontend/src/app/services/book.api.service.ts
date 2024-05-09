@@ -16,7 +16,7 @@ export class BookApiService {
         return this.http.get<Book[]>(this.url);
     }
 
-    getBookById(id: number): Observable<Book> {
+    getBookById(id: string): Observable<Book> {
         return this.http.get<Book>(`${this.url}/${id}`);
     }
 
@@ -30,7 +30,7 @@ export class BookApiService {
         );
     }
 
-    updateBook(id: number, request: UpsertBookRequest): Observable<Book> {
+    updateBook(id: string, request: UpsertBookRequest): Observable<Book> {
         return this.http.put<Book>(`${this.url}/${id}`, request).pipe(
             catchError(error => throwError(() => {
                 const restApiError = ((error as HttpErrorResponse).error) as RestApiError;
@@ -40,7 +40,7 @@ export class BookApiService {
         );
     }
 
-    deleteBookById(id: number): Observable<void> {
+    deleteBookById(id: string): Observable<void> {
         return this.http.delete<void>(`${this.url}/${id}`);
     }
 }

@@ -11,11 +11,11 @@ export class BookCommentApiService {
 
     constructor(private http: HttpClient) {}
 
-    getBookCommentsByBookId(bookId: number): Observable<BookComment[]> {
+    getBookCommentsByBookId(bookId: string): Observable<BookComment[]> {
         return this.http.get<BookComment[]>(`${this.url}${PATHS.BOOK}/${bookId}`);
     }
 
-    getBookCommentById(id: number): Observable<BookComment> {
+    getBookCommentById(id: string): Observable<BookComment> {
         return this.http.get<BookComment>(`${this.url}/${id}`);
     }
 
@@ -23,11 +23,11 @@ export class BookCommentApiService {
         return this.http.post<BookComment>(this.url, request);
     }
 
-    updateBookComment(id: number, request: UpsertBookCommentRequest): Observable<BookComment> {
+    updateBookComment(id: string, request: UpsertBookCommentRequest): Observable<BookComment> {
         return this.http.put<BookComment>(`${this.url}/${id}`, request);
     }
 
-    deleteBookCommentById(id: number): Observable<void> {
+    deleteBookCommentById(id: string): Observable<void> {
         return this.http.delete<void>(`${this.url}/${id}`);
     }
 }

@@ -73,7 +73,7 @@ export class BookDetailsComponent implements OnInit {
 
   updateBook() {
     let request = new UpsertBookRequest(
-      this.title, Number.parseInt(this.authorId), this.genreIds.map(id => Number.parseInt(id))
+      this.title, this.authorId, this.genreIds
     );
     this.bookApiService.updateBook(this.book!.id, request).subscribe(book => this.book = book);
     this.closeModalFunction();
@@ -93,7 +93,7 @@ export class BookDetailsComponent implements OnInit {
     this.clearInputs();
   }
 
-  goToBookComment(id: number) {
+  goToBookComment(id: string) {
     this.router.navigate(['/comment-details', id]);
   }
 
@@ -101,7 +101,7 @@ export class BookDetailsComponent implements OnInit {
     if (this.book) {
       this.title = this.book!.title;
       this.authorId = this.book!.author.id.toString();
-      this.genreIds = this.book.genres.map(genre => genre.id.toString());
+      this.genreIds = this.book.genres.map(genre => genre.id);
     }
   }
 
