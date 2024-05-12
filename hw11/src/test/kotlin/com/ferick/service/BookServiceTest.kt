@@ -61,6 +61,7 @@ class BookServiceTest {
             genreIds = setOf(genre.id!!)
         }
         every { authorRepository.findById(any<String>()) } returns Mono.empty()
+        every { genreRepository.findAllById(any<Set<String>>()) } returns Flux.just(genre)
         assertThatException().isThrownBy {
             bookService.insert(request).block()
         }.withMessage("Author with id ${request.authorId} not found")
