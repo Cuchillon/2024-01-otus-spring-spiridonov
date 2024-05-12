@@ -1,0 +1,25 @@
+application:
+  title: App for book library
+  version: 1.0
+
+spring:
+  webflux:
+    base-path: /book-library
+  data:
+    mongodb:
+      port: 0
+      database: library
+
+de:
+  flapdoodle:
+    mongodb:
+      embedded:
+        version: 4.0.2
+
+mongock:
+  change-logs-scan-package:
+    - com.ferick.changelogs
+  mongo-db:
+    write-concern:
+      journal: false
+    read-concern: local
