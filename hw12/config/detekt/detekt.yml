@@ -599,7 +599,7 @@ style:
     ignoreOverridden: false
     ignoreUsageInGenerics: false
   FunctionOnlyReturningConstant:
-    active: true
+    active: false
     ignoreOverridableFunction: true
     ignoreActualFunction: true
     excludedFunctions: []
@@ -731,7 +731,7 @@ style:
   UnusedImports:
     active: false
   UnusedParameter:
-    active: true
+    active: false
     allowedNames: 'ignored|expected'
   UnusedPrivateClass:
     active: true
@@ -739,7 +739,7 @@ style:
     active: true
     allowedNames: ''
   UnusedPrivateProperty:
-    active: true
+    active: false
     allowedNames: '_|ignored|expected|serialVersionUID'
   UseAnyOrNoneInsteadOfFind:
     active: true
