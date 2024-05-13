@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Book library</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/static/styles/global.css" th:href="@{/styles/global.css}">
+    <link rel="stylesheet" type="text/css" href="/static/styles/main.css" th:href="@{/styles/main.css}">
+    <link rel="stylesheet" type="text/css" href="/static/styles/table.css" th:href="@{/styles/table.css}">
+    <link rel="stylesheet" type="text/css" href="/static/styles/details.css" th:href="@{/styles/details.css}">
+    <link rel="stylesheet" type="text/css" href="/static/styles/button.css" th:href="@{/styles/button.css}">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <script>
+        function rowClicked(id) {
+            location.href = "/comment-details/" + id;
+        }
+    </script>
+</head>
+<body>
+<header th:insert="header :: navigation"></header>
+
+<div>
+    <table class="header">
+        <thead>
+        <tr>
+            <th></th>
+            <th>
+                <h2>
+                    <span class="header-span">Book details</span>
+                </h2>
+            </th>
+            <th>
+                <form action="#" th:action="@{/book/__${book.id}__/delete}" th:method="post" >
+                    <input type="hidden" name="_method" value="delete" />
+                    <button class="ordinary-btn" type="submit">Delete book</button>
+                </form>
+                <a href="update_book.html" th:href="@{/book/__${book.id}__}"><button class="ordinary-btn left-btn" type="button">Update book</button></a>
+            </th>
+        </tr>
+        </thead>
+    </table>>
+</div>
+
+<div class="details-container">
+    <div>Id: <span class="details-span" th:text="${book.id}">book id</span></div>
+    <div>Title: <span class="details-span" th:text="${book.title}">book title</span></div>
+    <div>Author: <span class="details-span" th:text="${book.author.fullName}">author name</span></div>
+    <div>Genres:</div>
+    <ul th:each="genre : ${book.genres}">
+        <li th:text="${genre.name}">Genre name</li>
+    </ul>
+</div>
+
+<div>
+    <table class="header">
+        <thead>
+        <tr>
+            <th></th>
+            <th>
+                <h2>
+                    <span class="header-span">Comments</span>
+                </h2>
+            </th>
+            <th>
+                <a href="add_comment.html" th:href="@{/comment/__${book.id}__}"><button class="ordinary-btn" type="button">Add comment</button></a>
+            </th>
+        </tr>
+        </thead>
+    </table>>
+    <table class="container">
+        <thead>
+        <tr>
+            <th><h1>Id</h1></th>
+            <th><h1>Text</h1></th>
+        </tr>
+        </thead>
+        <tbody class="container-body">
+        <tr th:each="bookComment : ${bookComments}"
+            th:comment-id="${bookComment.id}"
+            th:onclick="'javascript:rowClicked(this.getAttribute(\'comment-id\'));'">
+            <td th:text="${bookComment.id}">Comment id</td>
+            <td th:text="${bookComment.text}">Comment text</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
