@@ -26,8 +26,5 @@ values (1, 1),   (1, 2),
        (2, 3),   (2, 5),
        (3, 4),   (3, 6);
 
-insert into users(username, password, enabled)
-values ('user', '$2a$10$JaGkJUlQ09ovcBO.exxzIeRrC1xCCYcG9h8xyDfWBwHaXfeYKalv2', true);
-
-insert into authorities(username, authority)
-values ('user', 'USER');
+insert into users(username, password)
+values ('user', '$2a$10$JaGkJUlQ09ovcBO.exxzIeRrC1xCCYcG9h8xyDfWBwHaXfeYKalv2');
