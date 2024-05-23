@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Book library</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/static/styles/global.css" th:href="@{/styles/global.css}">
+    <link rel="stylesheet" type="text/css" href="/static/styles/main.css" th:href="@{/styles/main.css}">
+    <link rel="stylesheet" type="text/css" href="/static/styles/table.css" th:href="@{/styles/table.css}">
+    <link rel="stylesheet" type="text/css" href="/static/styles/books.css" th:href="@{/styles/books.css}">
+    <link rel="stylesheet" type="text/css" href="/static/styles/button.css" th:href="@{/styles/button.css}">
+    <link rel="stylesheet" type="text/css" href="/static/styles/form.css" th:href="@{/styles/form.css}">
+    <link rel="stylesheet" type="text/css" href="/static/styles/errors.css" th:href="@{/styles/errors.css}">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+<header th:insert="header :: navigation"></header>
+
+<div>
+    <h2>
+        <span class="header-span" th:text="${book.title}">Book title</span>
+    </h2>
+</div>
+
+<form action="update_comment.html" th:action="@{/comment/__${comment.id}__}" th:method="post" th:object="${comment}">
+    <div>
+        <label class="labels" for="id-input">Id</label><br>
+        <input class="inputs" id="id-input" name="id" readonly="readonly" type="text" th:field="*{id}" />
+    </div>
+    <div>
+        <label class="labels" for="text-input">Comment text</label><br>
+        <input class="inputs" id="text-input" name="text" type="text" th:field="*{text}" />
+        <div class="errors" th:if="${#fields.hasErrors('text')}" th:errors="*{text}">Wrong book comment error</div>
+    </div>
+    <div>
+        <input type="hidden" name="book-id" th:field="*{bookId}" />
+    </div>
+
+    <div class="footer">
+        <button class="form-btn" type="submit">Update</button>
+        <a href="books.html" th:href="@{/comment-details/__${comment.id}__}"><button class="form-btn" type="button">Close</button></a>
+    </div>
+</form>
+
+</body>
+</html>

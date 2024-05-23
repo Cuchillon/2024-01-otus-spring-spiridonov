@@ -1,0 +1,21 @@
+form {
+  text-align: center;
+  margin: 0 auto;
+}
+
+.labels {
+  font-size: 2em;
+  color: #ecf0f1;
+  text-shadow: 2px 2px 4px #000000;
+}
+
+.inputs {
+  width: 500px;
+  margin: 5px;
+  font-size: 2em;
+  color: #323C50;
+}
+
+.footer {
+  align-self: center;
+}
