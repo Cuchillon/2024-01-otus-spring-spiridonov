@@ -1,0 +1,10 @@
+.errors {
+  font-size: 2em;
+  color: #e74c3c;
+}
+
+.forbidden {
+  position: relative;
+  font-size: 5em;
+  color: #e74c3c;
+}
