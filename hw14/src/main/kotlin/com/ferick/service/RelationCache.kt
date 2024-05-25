@@ -1,6 +1,6 @@
 package com.ferick.service
 
-import com.ferick.model.entities.mongo.BookAllRelations
+import com.ferick.model.dto.BookAllRelations
 import org.springframework.stereotype.Component
 import java.util.concurrent.ConcurrentHashMap
 

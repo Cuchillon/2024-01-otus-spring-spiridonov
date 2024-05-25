@@ -1,7 +1,7 @@
 package com.ferick.service.processors
 
 import com.ferick.model.entities.jpa.JpaBook
-import com.ferick.model.entities.mongo.BookAllRelations
+import com.ferick.model.dto.BookAllRelations
 import com.ferick.model.entities.mongo.MongoBook
 import com.ferick.service.RelationCache
 import org.bson.types.ObjectId
