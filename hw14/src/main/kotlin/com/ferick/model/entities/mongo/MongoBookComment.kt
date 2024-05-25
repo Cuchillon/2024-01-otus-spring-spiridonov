@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef
 import org.springframework.data.mongodb.core.mapping.Document
 
 @Document("book_comments")
-class BookComment(
+class MongoBookComment(
     @Id
     var id: String? = null,
     var text: String,

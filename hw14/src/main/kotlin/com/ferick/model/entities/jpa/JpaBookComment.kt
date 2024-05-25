@@ -20,7 +20,7 @@ import jakarta.persistence.Table
         NamedAttributeNode("book")
     ]
 )
-class BookComment(
+class JpaBookComment(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,

@@ -2,6 +2,7 @@ package com.ferick.configuration
 
 import com.ferick.model.entities.mongo.MongoAuthor
 import com.ferick.model.entities.mongo.MongoBook
+import com.ferick.model.entities.mongo.MongoBookComment
 import com.ferick.model.entities.mongo.MongoGenre
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
@@ -37,6 +38,7 @@ class JobConfigurationTest {
         val mongoAuthors = mongoOperations.findAll(MongoAuthor::class.java)
         val mongoGenres = mongoOperations.findAll(MongoGenre::class.java)
         val mongoBooks = mongoOperations.findAll(MongoBook::class.java)
+        val mongoBookComments = mongoOperations.findAll(MongoBookComment::class.java)
         assertThat(jobExecution.exitStatus.exitCode).isEqualTo("COMPLETED")
         assertThat(mongoAuthors).hasSize(3)
         assertThat(mongoGenres).hasSize(6)
@@ -44,5 +46,6 @@ class JobConfigurationTest {
         mongoBooks.forEach { book ->
             assertThat(book.genres).hasSize(2)
         }
+        assertThat(mongoBookComments).hasSize(6)
     }
 }

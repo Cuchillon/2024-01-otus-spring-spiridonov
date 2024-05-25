@@ -18,10 +18,15 @@ class JobConfiguration(
 ) {
 
     @Bean
-    fun libraryJob(splitFlow: Flow, processBookStep: Step): Job {
+    fun libraryJob(
+        splitFlow: Flow,
+        processBookStep: Step,
+        processBookCommentStep: Step
+    ): Job {
         return JobBuilder("libraryJob", jobRepository)
             .start(splitFlow)
             .next(processBookStep)
+            .next(processBookCommentStep)
             .end()
             .build()
     }
