@@ -2,6 +2,7 @@ package com.ferick.configuration
 
 import com.ferick.model.entities.jpa.JpaGenre
 import com.ferick.model.entities.mongo.MongoGenre
+import com.ferick.service.RelationCache
 import com.ferick.service.processors.GenreProcessor
 import jakarta.persistence.EntityManagerFactory
 import org.springframework.batch.core.Step
@@ -22,7 +23,9 @@ private const val CHUNK_SIZE = 3
 @Configuration
 class GenreStepConfiguration(
     private val jobRepository: JobRepository,
-    private val platformTransactionManager: PlatformTransactionManager
+    private val mongoOperations: MongoOperations,
+    private val platformTransactionManager: PlatformTransactionManager,
+    private val relationCache: RelationCache
 ) {
 
     @Bean
@@ -35,12 +38,12 @@ class GenreStepConfiguration(
     }
 
     @Bean
-    fun genreProcessor(mongoOperations: MongoOperations): GenreProcessor {
-        return GenreProcessor(mongoOperations)
+    fun genreProcessor(): GenreProcessor {
+        return GenreProcessor(relationCache)
     }
 
     @Bean
-    fun genreWriter(mongoOperations: MongoOperations): MongoItemWriter<MongoGenre> {
+    fun genreWriter(): MongoItemWriter<MongoGenre> {
         return MongoItemWriterBuilder<MongoGenre>()
             .template(mongoOperations)
             .collection("genres")

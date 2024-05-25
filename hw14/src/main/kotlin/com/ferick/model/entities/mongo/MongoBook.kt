@@ -10,7 +10,7 @@ class MongoBook(
     var id: String? = null,
     val title: String,
     @DBRef(lazy = true)
-    val author: MongoAuthor,
+    var author: MongoAuthor? = null,
     @DBRef(lazy = true)
-    val genres: List<MongoGenre> = emptyList()
+    var genres: List<MongoGenre> = emptyList()
 )

@@ -1,14 +1,13 @@
 package com.ferick.service.processors
 
 import com.ferick.model.entities.jpa.JpaGenre
-import com.ferick.model.entities.mongo.GenreIds
 import com.ferick.model.entities.mongo.MongoGenre
+import com.ferick.service.RelationCache
 import org.bson.types.ObjectId
 import org.springframework.batch.item.ItemProcessor
-import org.springframework.data.mongodb.core.MongoOperations
 
 class GenreProcessor(
-    private val mongoOperations: MongoOperations
+    private val relationCache: RelationCache
 ) : ItemProcessor<JpaGenre, MongoGenre> {
 
     override fun process(item: JpaGenre): MongoGenre {
@@ -16,7 +15,7 @@ class GenreProcessor(
             id = ObjectId().toString(),
             name = item.name
         )
-        mongoOperations.insert(GenreIds(jpaId = item.id!!, mongoId = genre.id!!))
+        relationCache.genreRelations[item.id!!] = genre.id!!
         return genre
     }
 }

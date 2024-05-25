@@ -2,6 +2,7 @@ package com.ferick.configuration
 
 import com.ferick.model.entities.jpa.JpaAuthor
 import com.ferick.model.entities.mongo.MongoAuthor
+import com.ferick.service.RelationCache
 import com.ferick.service.processors.AuthorProcessor
 import jakarta.persistence.EntityManagerFactory
 import org.springframework.batch.core.Step
@@ -23,7 +24,9 @@ private const val CHUNK_SIZE = 3
 @Configuration
 class AuthorStepConfiguration(
     private val jobRepository: JobRepository,
-    private val platformTransactionManager: PlatformTransactionManager
+    private val mongoOperations: MongoOperations,
+    private val platformTransactionManager: PlatformTransactionManager,
+    private val relationCache: RelationCache
 ) {
 
     @Bean
@@ -36,12 +39,12 @@ class AuthorStepConfiguration(
     }
 
     @Bean
-    fun authorProcessor(mongoOperations: MongoOperations): AuthorProcessor {
-        return AuthorProcessor(mongoOperations)
+    fun authorProcessor(): AuthorProcessor {
+        return AuthorProcessor(relationCache)
     }
 
     @Bean
-    fun authorWriter(mongoOperations: MongoOperations): MongoItemWriter<MongoAuthor> {
+    fun authorWriter(): MongoItemWriter<MongoAuthor> {
         return MongoItemWriterBuilder<MongoAuthor>()
             .template(mongoOperations)
             .collection("authors")

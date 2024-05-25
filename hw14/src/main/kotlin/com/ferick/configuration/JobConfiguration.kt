@@ -65,9 +65,9 @@ class JobConfiguration(
     }
 
     @Bean
-    fun cleanUpStep(): Step {
+    fun cleanUpStep(cleanUpTasklet: MethodInvokingTaskletAdapter): Step {
         return StepBuilder("cleanUpStep", jobRepository)
-            .tasklet(cleanUpTasklet(), platformTransactionManager)
+            .tasklet(cleanUpTasklet, platformTransactionManager)
             .build()
     }
 

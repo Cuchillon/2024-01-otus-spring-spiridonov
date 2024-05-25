@@ -2,6 +2,8 @@ package com.ferick.configuration
 
 import com.ferick.model.entities.jpa.JpaBook
 import com.ferick.model.entities.mongo.MongoBook
+import com.ferick.service.RelationCache
+import com.ferick.service.listeners.BookWriteListener
 import com.ferick.service.processors.BookProcessor
 import jakarta.persistence.EntityManagerFactory
 import org.springframework.batch.core.Step
@@ -23,7 +25,9 @@ private const val CHUNK_SIZE = 3
 @Configuration
 class BookStepConfiguration(
     private val jobRepository: JobRepository,
-    private val platformTransactionManager: PlatformTransactionManager
+    private val mongoOperations: MongoOperations,
+    private val platformTransactionManager: PlatformTransactionManager,
+    private val relationCache: RelationCache
 ) {
 
     @Bean
@@ -36,12 +40,12 @@ class BookStepConfiguration(
     }
 
     @Bean
-    fun bookProcessor(mongoOperations: MongoOperations): BookProcessor {
-        return BookProcessor(mongoOperations)
+    fun bookProcessor(): BookProcessor {
+        return BookProcessor(relationCache)
     }
 
     @Bean
-    fun bookWriter(mongoOperations: MongoOperations): MongoItemWriter<MongoBook> {
+    fun bookWriter(): MongoItemWriter<MongoBook> {
         return MongoItemWriterBuilder<MongoBook>()
             .template(mongoOperations)
             .collection("books")
@@ -59,6 +63,7 @@ class BookStepConfiguration(
             .reader(reader)
             .processor(processor)
             .writer(writer)
+            .listener(BookWriteListener(mongoOperations, relationCache))
             .build()
     }
 }

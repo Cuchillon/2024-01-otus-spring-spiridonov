@@ -10,5 +10,5 @@ class MongoBookComment(
     var id: String? = null,
     var text: String,
     @DBRef(lazy = true)
-    val book: MongoBook
+    var book: MongoBook? = null
 )

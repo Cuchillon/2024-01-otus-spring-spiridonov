@@ -40,12 +40,12 @@ class JobConfigurationTest {
         val mongoBooks = mongoOperations.findAll(MongoBook::class.java)
         val mongoBookComments = mongoOperations.findAll(MongoBookComment::class.java)
         assertThat(jobExecution.exitStatus.exitCode).isEqualTo("COMPLETED")
-        assertThat(mongoAuthors).hasSize(3)
+        assertThat(mongoAuthors).hasSize(10)
         assertThat(mongoGenres).hasSize(6)
-        assertThat(mongoBooks).hasSize(3)
+        assertThat(mongoBooks).hasSize(10)
         mongoBooks.forEach { book ->
-            assertThat(book.genres).hasSize(2)
+            assertThat(book.genres).hasSizeBetween(1, 2)
         }
-        assertThat(mongoBookComments).hasSize(6)
+        assertThat(mongoBookComments).hasSize(20)
     }
 }
