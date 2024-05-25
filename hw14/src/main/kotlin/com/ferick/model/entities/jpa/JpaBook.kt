@@ -1,0 +1,47 @@
+package com.ferick.model.entities.jpa
+
+import jakarta.persistence.CascadeType
+import jakarta.persistence.Column
+import jakarta.persistence.Entity
+import jakarta.persistence.FetchType
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
+import jakarta.persistence.JoinColumn
+import jakarta.persistence.JoinTable
+import jakarta.persistence.ManyToMany
+import jakarta.persistence.ManyToOne
+import jakarta.persistence.NamedAttributeNode
+import jakarta.persistence.NamedEntityGraph
+import jakarta.persistence.Table
+import org.hibernate.annotations.Fetch
+import org.hibernate.annotations.FetchMode
+
+@Entity
+@Table(name = "books")
+@NamedEntityGraph(
+    name = "book-author-entity-graph",
+    attributeNodes = [
+        NamedAttributeNode("author")
+    ]
+)
+class JpaBook(
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    var id: Long? = null,
+
+    @Column(name = "title")
+    val title: String,
+
+    @ManyToOne(targetEntity = JpaAuthor::class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "author_id", referencedColumnName = "id")
+    val author: JpaAuthor,
+
+    @Fetch(FetchMode.SUBSELECT)
+    @ManyToMany(targetEntity = JpaGenre::class, fetch = FetchType.LAZY, cascade = [CascadeType.PERSIST])
+    @JoinTable(name = "books_genres",
+        joinColumns = [JoinColumn(name = "book_id", referencedColumnName = "id")],
+        inverseJoinColumns = [JoinColumn(name = "genre_id", referencedColumnName = "id")]
+    )
+    val genres: List<JpaGenre> = emptyList()
+)
