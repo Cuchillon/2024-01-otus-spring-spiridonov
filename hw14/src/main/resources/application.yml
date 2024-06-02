@@ -1,0 +1,34 @@
+application:
+  title: Spring batch app for book library migration
+  version: 1.0
+
+spring:
+  batch:
+    job:
+      enabled: false
+  shell:
+    command:
+      version:
+        enabled: false
+  datasource:
+    url: jdbc:h2:mem:maindb
+  sql:
+    init:
+      mode: always
+      data-locations: data.sql
+      schema-locations: schema.sql
+  jpa:
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+  data:
+    mongodb:
+      port: 0
+      database: library
+
+de:
+  flapdoodle:
+    mongodb:
+      embedded:
+        version: 4.0.2

@@ -1,0 +1,5 @@
+[versions]
+h2 = "2.2.224"
+flapdoodle = "4.11.0"
+mockk = "1.13.9"
+springmockk = "4.0.2"
