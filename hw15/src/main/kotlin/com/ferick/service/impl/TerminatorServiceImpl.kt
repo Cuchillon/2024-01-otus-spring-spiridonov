@@ -9,17 +9,17 @@ import com.ferick.model.dto.TerminatorOrderResponse
 import com.ferick.model.dto.TerminatorType
 import com.ferick.repositories.TerminatorRepository
 import com.ferick.service.LaboratoryGateway
-import com.ferick.service.TerminatorOrderService
+import com.ferick.service.TerminatorService
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.util.*
 
 @Service
-class TerminatorOrderServiceImpl(
+class TerminatorServiceImpl(
     private val laboratoryGateway: LaboratoryGateway,
     private val terminatorRepository: TerminatorRepository,
     private val terminatorConverter: TerminatorConverter
-) : TerminatorOrderService {
+) : TerminatorService {
 
     override fun construct(request: TerminatorOrderRequest): TerminatorOrderResponse {
         val orderId = UUID.randomUUID().toString()

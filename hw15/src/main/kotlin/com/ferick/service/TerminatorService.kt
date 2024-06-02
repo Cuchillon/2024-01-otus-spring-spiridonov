@@ -4,7 +4,7 @@ import com.ferick.model.dto.TerminatorDto
 import com.ferick.model.dto.TerminatorOrderRequest
 import com.ferick.model.dto.TerminatorOrderResponse
 
-interface TerminatorOrderService {
+interface TerminatorService {
 
     fun construct(request: TerminatorOrderRequest): TerminatorOrderResponse
 

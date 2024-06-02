@@ -1,6 +1,8 @@
 package com.ferick.model.entities
 
+import com.ferick.converters.SkeletonTypeAttributeConverter
 import jakarta.persistence.Column
+import jakarta.persistence.Convert
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
@@ -15,6 +17,7 @@ class Skeleton(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
 
+    @Convert(converter = SkeletonTypeAttributeConverter::class)
     @Column(name = "type")
     val type: SkeletonType = SkeletonType.TITAN,
 
