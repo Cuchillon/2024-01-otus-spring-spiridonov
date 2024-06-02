@@ -1,6 +1,5 @@
 package com.ferick.service
 
-import com.ferick.model.entities.Terminator
 import com.ferick.model.dto.TerminatorOrderItem
 import org.springframework.integration.annotation.Gateway
 import org.springframework.integration.annotation.MessagingGateway

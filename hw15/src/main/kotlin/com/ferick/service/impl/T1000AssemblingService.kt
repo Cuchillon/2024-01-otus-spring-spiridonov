@@ -24,7 +24,8 @@ class T1000AssemblingService(
         )
         return Terminator(
             type = item.type,
-            construction = construction
+            construction = construction,
+            orderId = item.orderId
         ).also {
             alloyRepository.deleteById(alloy.id!!)
         }

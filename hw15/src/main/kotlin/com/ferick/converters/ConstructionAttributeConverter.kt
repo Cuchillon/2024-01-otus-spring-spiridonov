@@ -1,7 +1,6 @@
 package com.ferick.converters
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.fasterxml.jackson.module.kotlin.readValue
 import com.ferick.model.dto.Construction
 import jakarta.persistence.AttributeConverter
 import jakarta.persistence.Converter

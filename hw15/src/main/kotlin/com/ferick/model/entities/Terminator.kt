@@ -1,6 +1,7 @@
 package com.ferick.model.entities
 
 import com.ferick.converters.ConstructionAttributeConverter
+import com.ferick.converters.TerminatorTypeAttributeConverter
 import com.ferick.model.dto.Construction
 import com.ferick.model.dto.TerminatorType
 import jakarta.persistence.Column
@@ -18,10 +19,14 @@ class Terminator(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
 
+    @Convert(converter = TerminatorTypeAttributeConverter::class)
     @Column(name = "type")
     val type: TerminatorType,
 
     @Convert(converter = ConstructionAttributeConverter::class)
     @Column(name = "construction")
-    val construction: Construction
+    val construction: Construction,
+
+    @Column(name = "order_id")
+    val orderId: String
 )

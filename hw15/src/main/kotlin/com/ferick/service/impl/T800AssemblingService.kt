@@ -29,7 +29,8 @@ class T800AssemblingService(
         )
         return Terminator(
             type = item.type,
-            construction = construction
+            construction = construction,
+            orderId = item.orderId
         ).also {
             skeletonRepository.deleteById(skeleton.id!!)
             coveringRepository.deleteById(covering.id!!)

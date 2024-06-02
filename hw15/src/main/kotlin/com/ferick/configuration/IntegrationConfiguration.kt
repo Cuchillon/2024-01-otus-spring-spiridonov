@@ -1,9 +1,11 @@
 package com.ferick.configuration
 
+import com.ferick.configuration.properties.StorageProperties
 import com.ferick.model.dto.TerminatorOrderItem
 import com.ferick.model.dto.TerminatorType
 import com.ferick.model.entities.Terminator
 import jakarta.persistence.EntityManagerFactory
+import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.integration.annotation.IntegrationComponentScan
@@ -22,6 +24,7 @@ import org.springframework.integration.scheduling.PollerMetadata
 @Configuration
 @EnableIntegration
 @IntegrationComponentScan(basePackages = ["com.ferick.service"])
+@EnableConfigurationProperties(StorageProperties::class)
 class IntegrationConfiguration(
     private val entityManagerFactory: EntityManagerFactory
 ) {
@@ -44,6 +47,7 @@ class IntegrationConfiguration(
     @Bean
     fun routingFlow(): IntegrationFlow {
         return integrationFlow("itemsChannel") {
+            split()
             route<TerminatorOrderItem, TerminatorType>(
                 { it.type }
             ) {
@@ -60,7 +64,9 @@ class IntegrationConfiguration(
     @Bean
     fun t800Flow(): IntegrationFlow {
         return integrationFlow("t800BuildingChannel") {
+            split()
             handle("t800AssemblingService", "assemble")
+            aggregate()
             channel("terminatorChannel")
         }
     }
@@ -68,7 +74,9 @@ class IntegrationConfiguration(
     @Bean
     fun t1000Flow(): IntegrationFlow {
         return integrationFlow("t1000BuildingChannel") {
+            split()
             handle("t1000AssemblingService", "assemble")
+            aggregate()
             channel("terminatorChannel")
         }
     }

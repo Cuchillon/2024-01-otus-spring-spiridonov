@@ -13,4 +13,10 @@ spring:
     generate-ddl: false
     hibernate:
       ddl-auto: none
-    show-sql: true
+    show-sql: false
+
+scheduler-thread-pool:
+  threadNumber: 3
+
+storage:
+  capacity: 50

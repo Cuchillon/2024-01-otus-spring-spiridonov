@@ -23,5 +23,6 @@ create table terminators (
     id bigserial,
     type varchar(255),
     construction varchar(500),
+    order_id varchar(255),
     primary key (id)
 );
