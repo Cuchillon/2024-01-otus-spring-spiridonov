@@ -30,6 +30,7 @@ dependencies {
     testImplementation(group = "com.ninja-squad", name = "springmockk", version = libs.versions.springmockk.get())
     testImplementation(group = "org.apache.commons", name = "commons-lang3", version = libs.versions.commonsLang.get())
     implementation(kotlin("stdlib-jdk8"))
+    runtimeOnly("org.postgresql:postgresql")
 }
 
 tasks.test {
