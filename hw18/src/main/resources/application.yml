@@ -1,0 +1,61 @@
+application:
+  title: App for book library
+  version: 1.0
+
+server:
+  servlet:
+    context-path: /book-library
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:maindb
+  sql:
+    init:
+      mode: always
+      data-locations: classpath:data.sql
+      schema-locations: classpath:schema.sql
+  jpa:
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: metrics, health, logfile
+  endpoint:
+    health:
+      show-details: always
+    logfile:
+      enabled: true
+  health:
+    defaults:
+      enabled: true
+
+logging:
+  file:
+    name: book-library.log
+
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        slidingWindowType: TIME_BASED
+        slidingWindowSize: 30
+        permittedNumberOfCallsInHalfOpenState: 2
+        slowCallDurationThreshold: 2s
+        slowCallRateThreshold: 2
+        failureRateThreshold: 1
+        waitDurationInOpenState: 10s
+        minimumNumberOfCalls: 2
+    instances:
+      authors:
+        baseConfig: default
+      genres:
+        baseConfig: default
+      books:
+        baseConfig: default
+      comments:
+        baseConfig: default

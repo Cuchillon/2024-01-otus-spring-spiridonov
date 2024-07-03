@@ -1,0 +1,7 @@
+[versions]
+resilience4j = "2.1.0"
+h2 = "2.2.224"
+mockk = "1.13.9"
+springmockk = "4.0.2"
+commonsLang = "3.14.0"
+jackson = "2.17.0"
